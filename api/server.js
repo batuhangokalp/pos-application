@@ -1,9 +1,14 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const logger = require("morgan");
+const cors = require("cors");
 
 const app = express();
 const port = 5000;
+
+// route
+const mainRoute = require("./routes/index.js");
 
 dotenv.config();
 
@@ -15,6 +20,14 @@ const connect = async () => {
     throw error;
   }
 };
+
+// middlewares
+app.use(express.json());
+app.use(logger("dev"));
+app.use(cors());
+
+
+app.use("/api", mainRoute);
 
 app.listen(port, () => {
   connect();
