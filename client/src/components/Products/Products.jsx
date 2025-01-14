@@ -1,229 +1,25 @@
-const Products = () => {
+const Products = ({ productsData, setProductsData }) => {
   return (
     <div className="product-wrapper grid grid-cols-card gap-4">
-      <div className="product-item border hover:shadow-lg cursor-pointer transition-all select-none">
-        <div className="product-img">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZyyRD7OkXlJDE9hgjrKwZ30rwLqwOaJbMiQ&s"
-            alt=""
-            className="h-28 object-cover w-full border-b"
-          />
-          <div className="produtc-info flex flex-col p-3">
-            <span className="font-bold">Elma</span>
-            <span>12₺</span>
+      {productsData?.length > 0 &&
+        productsData?.map((product) => (
+          <div
+            className="product-item border hover:shadow-lg cursor-pointer transition-all select-none"
+            key={product?._id}
+          >
+            <div className="product-img h-40 w-full">
+              <img
+                src={product?.img}
+                alt={product?.title || "Product"}
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <div className="product-info flex flex-col p-3">
+              <span className="font-bold">{product?.title}</span>
+              <span>{product?.price?.toFixed(2)} ₺</span>
+            </div>
           </div>
-        </div>
-      </div>
-
-      <div className="product-item border hover:shadow-lg cursor-pointer transition-all select-none">
-        <div className="product-img">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZyyRD7OkXlJDE9hgjrKwZ30rwLqwOaJbMiQ&s"
-            alt=""
-            className="h-28 object-cover w-full border-b"
-          />
-          <div className="produtc-info flex flex-col p-3">
-            <span className="font-bold">Elma</span>
-            <span>12₺</span>
-          </div>
-        </div>
-      </div>
-      <div className="product-item border hover:shadow-lg cursor-pointer transition-all select-none">
-        <div className="product-img">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZyyRD7OkXlJDE9hgjrKwZ30rwLqwOaJbMiQ&s"
-            alt=""
-            className="h-28 object-cover w-full border-b"
-          />
-          <div className="produtc-info flex flex-col p-3">
-            <span className="font-bold">Elma</span>
-            <span>12₺</span>
-          </div>
-        </div>
-      </div>
-      <div className="product-item border hover:shadow-lg cursor-pointer transition-all select-none">
-        <div className="product-img">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZyyRD7OkXlJDE9hgjrKwZ30rwLqwOaJbMiQ&s"
-            alt=""
-            className="h-28 object-cover w-full border-b"
-          />
-          <div className="produtc-info flex flex-col p-3">
-            <span className="font-bold">Elma</span>
-            <span>12₺</span>
-          </div>
-        </div>
-      </div>
-      <div className="product-item border hover:shadow-lg cursor-pointer transition-all select-none">
-        <div className="product-img">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZyyRD7OkXlJDE9hgjrKwZ30rwLqwOaJbMiQ&s"
-            alt=""
-            className="h-28 object-cover w-full border-b"
-          />
-          <div className="produtc-info flex flex-col p-3">
-            <span className="font-bold">Elma</span>
-            <span>12₺</span>
-          </div>
-        </div>
-      </div>
-      <div className="product-item border hover:shadow-lg cursor-pointer transition-all select-none">
-        <div className="product-img">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZyyRD7OkXlJDE9hgjrKwZ30rwLqwOaJbMiQ&s"
-            alt=""
-            className="h-28 object-cover w-full border-b"
-          />
-          <div className="produtc-info flex flex-col p-3">
-            <span className="font-bold">Elma</span>
-            <span>12₺</span>
-          </div>
-        </div>
-      </div>
-      <div className="product-item border hover:shadow-lg cursor-pointer transition-all select-none">
-        <div className="product-img">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZyyRD7OkXlJDE9hgjrKwZ30rwLqwOaJbMiQ&s"
-            alt=""
-            className="h-28 object-cover w-full border-b"
-          />
-          <div className="produtc-info flex flex-col p-3">
-            <span className="font-bold">Elma</span>
-            <span>12₺</span>
-          </div>
-        </div>
-      </div>
-      <div className="product-item border hover:shadow-lg cursor-pointer transition-all select-none">
-        <div className="product-img">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZyyRD7OkXlJDE9hgjrKwZ30rwLqwOaJbMiQ&s"
-            alt=""
-            className="h-28 object-cover w-full border-b"
-          />
-          <div className="produtc-info flex flex-col p-3">
-            <span className="font-bold">Elma</span>
-            <span>12₺</span>
-          </div>
-        </div>
-      </div>
-      <div className="product-item border hover:shadow-lg cursor-pointer transition-all select-none">
-        <div className="product-img">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZyyRD7OkXlJDE9hgjrKwZ30rwLqwOaJbMiQ&s"
-            alt=""
-            className="h-28 object-cover w-full border-b"
-          />
-          <div className="produtc-info flex flex-col p-3">
-            <span className="font-bold">Elma</span>
-            <span>12₺</span>
-          </div>
-        </div>
-      </div>
-      <div className="product-item border hover:shadow-lg cursor-pointer transition-all select-none">
-        <div className="product-img">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZyyRD7OkXlJDE9hgjrKwZ30rwLqwOaJbMiQ&s"
-            alt=""
-            className="h-28 object-cover w-full border-b"
-          />
-          <div className="produtc-info flex flex-col p-3">
-            <span className="font-bold">Elma</span>
-            <span>12₺</span>
-          </div>
-        </div>
-      </div>
-      <div className="product-item border hover:shadow-lg cursor-pointer transition-all select-none">
-        <div className="product-img">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZyyRD7OkXlJDE9hgjrKwZ30rwLqwOaJbMiQ&s"
-            alt=""
-            className="h-28 object-cover w-full border-b"
-          />
-          <div className="produtc-info flex flex-col p-3">
-            <span className="font-bold">Elma</span>
-            <span>12₺</span>
-          </div>
-        </div>
-      </div>
-      <div className="product-item border hover:shadow-lg cursor-pointer transition-all select-none">
-        <div className="product-img">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZyyRD7OkXlJDE9hgjrKwZ30rwLqwOaJbMiQ&s"
-            alt=""
-            className="h-28 object-cover w-full border-b"
-          />
-          <div className="produtc-info flex flex-col p-3">
-            <span className="font-bold">Elma</span>
-            <span>12₺</span>
-          </div>
-        </div>
-      </div>
-      <div className="product-item border hover:shadow-lg cursor-pointer transition-all select-none">
-        <div className="product-img">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZyyRD7OkXlJDE9hgjrKwZ30rwLqwOaJbMiQ&s"
-            alt=""
-            className="h-28 object-cover w-full border-b"
-          />
-          <div className="produtc-info flex flex-col p-3">
-            <span className="font-bold">Elma</span>
-            <span>12₺</span>
-          </div>
-        </div>
-      </div>
-      <div className="product-item border hover:shadow-lg cursor-pointer transition-all select-none">
-        <div className="product-img">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZyyRD7OkXlJDE9hgjrKwZ30rwLqwOaJbMiQ&s"
-            alt=""
-            className="h-28 object-cover w-full border-b"
-          />
-          <div className="produtc-info flex flex-col p-3">
-            <span className="font-bold">Elma</span>
-            <span>12₺</span>
-          </div>
-        </div>
-      </div>
-      <div className="product-item border hover:shadow-lg cursor-pointer transition-all select-none">
-        <div className="product-img">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZyyRD7OkXlJDE9hgjrKwZ30rwLqwOaJbMiQ&s"
-            alt=""
-            className="h-28 object-cover w-full border-b"
-          />
-          <div className="produtc-info flex flex-col p-3">
-            <span className="font-bold">Elma</span>
-            <span>12₺</span>
-          </div>
-        </div>
-      </div>
-      <div className="product-item border hover:shadow-lg cursor-pointer transition-all select-none">
-        <div className="product-img">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZyyRD7OkXlJDE9hgjrKwZ30rwLqwOaJbMiQ&s"
-            alt=""
-            className="h-28 object-cover w-full border-b"
-          />
-          <div className="produtc-info flex flex-col p-3">
-            <span className="font-bold">Elma</span>
-            <span>12₺</span>
-          </div>
-        </div>
-      </div>
-      <div className="product-item border hover:shadow-lg cursor-pointer transition-all select-none">
-        <div className="product-img">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZyyRD7OkXlJDE9hgjrKwZ30rwLqwOaJbMiQ&s"
-            alt=""
-            className="h-28 object-cover w-full border-b"
-          />
-          <div className="produtc-info flex flex-col p-3">
-            <span className="font-bold">Elma</span>
-            <span>12₺</span>
-          </div>
-        </div>
-      </div>
-      
+        ))}
     </div>
   );
 };

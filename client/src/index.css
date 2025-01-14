@@ -4,6 +4,10 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
 
+.category-button {
+  @apply bg-green-700 px-6 py-10 text-white hover:cursor-pointer hover:bg-pink-700 transition-all text-center;
+}
+
 body {
   margin: 0;
   font-family: "Electrolize", serif;
