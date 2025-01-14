@@ -84,7 +84,7 @@ const Categories = ({ categoriesData, setCategoriesData }) => {
                   <EditOutlined />
                 </button>
                 <Popconfirm
-                  title="Kategoriyi Sil"
+                  title={`Kategoriyi Sil - ${category?.title}`}
                   description="Kategoriyi silmek istediğinize emin misiniz?"
                   okText="Evet"
                   cancelText="Hayır"
@@ -107,7 +107,7 @@ const Categories = ({ categoriesData, setCategoriesData }) => {
         onCancel={() => setIsModalOpen(false)}
         footer={false}
       >
-        <CategoryForm onFinish={onFinish} form={form} type={type}/>
+        <CategoryForm onFinish={onFinish} form={form} type={type} />
       </Modal>
     </>
   );

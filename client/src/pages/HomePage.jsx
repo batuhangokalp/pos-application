@@ -41,6 +41,7 @@ const HomePage = () => {
           <Products
             productsData={productsData}
             setProductsData={setProductsData}
+            categoriesData={categoriesData}
           />
         </div>
         <div className="cart-totals min-w-[300px] border">

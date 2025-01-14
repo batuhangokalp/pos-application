@@ -5,7 +5,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
 
 .category-button {
-  @apply bg-green-700 px-6 py-10 text-white hover:cursor-pointer hover:bg-pink-700 transition-all text-center;
+  @apply bg-cyan-700 px-6 py-10 text-white hover:cursor-pointer hover:bg-blue-700 transition-all text-center;
 }
 
 body {
