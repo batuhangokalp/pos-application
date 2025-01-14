@@ -5,6 +5,8 @@ import CartTotals from "../components/Cart/CartTotals";
 import Categories from "../components/Categories/Categories";
 import Products from "../components/Products/Products";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const HomePage = () => {
   const [categoriesData, setCategoriesData] = useState([]);
   const [productsData, setProductsData] = useState([]);
@@ -13,8 +15,8 @@ const HomePage = () => {
     const fetchData = async () => {
       try {
         const [categoriesResponse, productsResponse] = await Promise.all([
-          axios.get("http://localhost:5000/api/categories"),
-          axios.get("http://localhost:5000/api/products"),
+          axios.get(`${API_URL}categories`),
+          axios.get(`${API_URL}products`),
         ]);
 
         setCategoriesData(categoriesResponse.data);

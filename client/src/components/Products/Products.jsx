@@ -5,6 +5,8 @@ import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
 import ProductItem from "./ProductItem";
 import ProductForm from "./ProductForm";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const Products = ({ productsData, setProductsData, categoriesData }) => {
   const [productModal, setProductModal] = useState(false);
   const [type, setType] = useState("add");
@@ -14,15 +16,12 @@ const Products = ({ productsData, setProductsData, categoriesData }) => {
   const onFinish = async (values) => {
     try {
       if (type === "add") {
-        const response = await axios.post(
-          "http://localhost:5000/api/products",
-          {
-            title: values.title,
-            img: values.img,
-            price: values.price,
-            category: values.category,
-          }
-        );
+        const response = await axios.post(`${API_URL}products`, {
+          title: values.title,
+          img: values.img,
+          price: values.price,
+          category: values.category,
+        });
         if (response.status === 201) {
           message.success("Ürün başarıyla oluşturuldu!");
           form.resetFields();
@@ -31,7 +30,7 @@ const Products = ({ productsData, setProductsData, categoriesData }) => {
         }
       } else if (type === "edit") {
         const response = await axios.put(
-          `http://localhost:5000/api/products/${currentProduct._id}`,
+          `${API_URL}products/${currentProduct._id}`,
           {
             title: values.title,
             img: values.img,
@@ -57,7 +56,7 @@ const Products = ({ productsData, setProductsData, categoriesData }) => {
 
   const handleDeleteProduct = async (productId) => {
     try {
-      await axios.delete(`http://localhost:5000/api/products/${productId}`);
+      await axios.delete(`${API_URL}products/${productId}`);
       setProductsData((prevProducts) =>
         prevProducts.filter((product) => product._id !== productId)
       );

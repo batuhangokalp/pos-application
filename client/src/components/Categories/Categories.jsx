@@ -4,6 +4,8 @@ import { Form, message, Modal, Popconfirm } from "antd";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
 import CategoryForm from "./CategoryForm";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const Categories = ({ categoriesData, setCategoriesData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [type, setType] = useState("add");
@@ -13,10 +15,9 @@ const Categories = ({ categoriesData, setCategoriesData }) => {
   const onFinish = async (values) => {
     try {
       if (type === "add") {
-        const response = await axios.post(
-          "http://localhost:5000/api/categories",
-          { title: values.categoryName }
-        );
+        const response = await axios.post(`${API_URL}categories`, {
+          title: values.categoryName,
+        });
         if (response.status === 201) {
           message.success("Kategori başarıyla oluşturuldu!");
           form.resetFields();
@@ -25,7 +26,7 @@ const Categories = ({ categoriesData, setCategoriesData }) => {
         }
       } else if (type === "edit") {
         const response = await axios.put(
-          `http://localhost:5000/api/categories/${currentCategory._id}`,
+          `${API_URL}categories/${currentCategory._id}`,
           { title: values.categoryName }
         );
         if (response.status === 200) {
@@ -46,7 +47,7 @@ const Categories = ({ categoriesData, setCategoriesData }) => {
 
   const handleDeleteCategory = async (categoryId) => {
     try {
-      await axios.delete(`http://localhost:5000/api/categories/${categoryId}`);
+      await axios.delete(`${API_URL}categories/${categoryId}`);
 
       setCategoriesData((prevCategories) =>
         prevCategories.filter((category) => category._id !== categoryId)
