@@ -78,7 +78,7 @@ const Categories = ({ categoriesData, setCategoriesData }) => {
               <span>{category.title}</span>
               <div className="absolute top-1 right-1 hidden group-hover:flex gap-1">
                 <button
-                  className="text-white p-1 rounded hover:bg-orange-600"
+                  className="update-button"
                   onClick={() => handleEditCategory(category)}
                 >
                   <EditOutlined />
@@ -90,7 +90,7 @@ const Categories = ({ categoriesData, setCategoriesData }) => {
                   cancelText="Hayır"
                   onConfirm={() => handleDeleteCategory(category._id)}
                 >
-                  <button className=" text-white p-1 rounded hover:bg-red-600">
+                  <button className="delete-button">
                     <DeleteOutlined />
                   </button>
                 </Popconfirm>

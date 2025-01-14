@@ -91,7 +91,7 @@ const Products = ({ productsData, setProductsData, categoriesData }) => {
             <div key={product?._id} className="relative group">
               <div className="absolute top-1 right-1 hidden group-hover:flex gap-1">
                 <button
-                  className="text-white p-1 rounded bg-orange-400 hover:bg-orange-600"
+                  className="update-button"
                   onClick={() => handleEditProduct(product)}
                 >
                   <EditOutlined />
@@ -103,7 +103,7 @@ const Products = ({ productsData, setProductsData, categoriesData }) => {
                   cancelText="Hayır"
                   onConfirm={() => handleDeleteProduct(product._id)}
                 >
-                  <button className="text-white p-1 rounded bg-red-400 hover:bg-red-600">
+                  <button className="delete-button">
                     <DeleteOutlined />
                   </button>
                 </Popconfirm>
