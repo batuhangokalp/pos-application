@@ -10,7 +10,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 const HomePage = () => {
   const [categoriesData, setCategoriesData] = useState([]);
   const [productsData, setProductsData] = useState([]);
-
+  const [quantity, setQuantity] = useState(0);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -44,10 +44,12 @@ const HomePage = () => {
             productsData={productsData}
             setProductsData={setProductsData}
             categoriesData={categoriesData}
+            quantity={quantity}
+            setQuantity={setQuantity}
           />
         </div>
         <div className="cart-totals min-w-[300px] border">
-          <CartTotals />
+          <CartTotals quantity={quantity} setQuantity={setQuantity} />
         </div>
       </div>
     </>

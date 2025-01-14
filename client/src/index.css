@@ -20,6 +20,16 @@ body {
   @apply text-white p-1 rounded bg-orange-400 hover:bg-orange-600;
 }
 
+.header-link {
+  @apply flex flex-col items-center hover:text-[#40a9ff] transition-all;
+}
+
+.header-link-icon {
+  @apply text-xl md:text-2xl;
+}
+.header-link-span {
+  @apply text-[10px] md:text-xs;
+}
 
 @media (min-width: 768px) {
   .categories::-webkit-scrollbar {

@@ -7,7 +7,13 @@ import ProductForm from "./ProductForm";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-const Products = ({ productsData, setProductsData, categoriesData }) => {
+const Products = ({
+  productsData,
+  setProductsData,
+  categoriesData,
+  quantity,
+  setQuantity,
+}) => {
   const [productModal, setProductModal] = useState(false);
   const [type, setType] = useState("add");
   const [currentProduct, setCurrentProduct] = useState(null);
@@ -107,7 +113,11 @@ const Products = ({ productsData, setProductsData, categoriesData }) => {
                   </button>
                 </Popconfirm>
               </div>
-              <ProductItem product={product} />
+              <ProductItem
+                product={product}
+                quantity={quantity}
+                setQuantity={setQuantity}
+              />
             </div>
           ))}
         <div
