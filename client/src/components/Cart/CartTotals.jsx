@@ -19,16 +19,13 @@ const CartTotals = () => {
     dispatch(removeFromCart(cartItem));
   };
 
-  console.log(cartItems);
-
   const getTotalPrice = () => {
-    return cartItems.reduce((total, item) => {
+    return cartItems?.reduce((total, item) => {
       return total + item.price * item.quantity;
     }, 0);
   };
 
   const KDV = (getTotalPrice() * 8) / 100;
-  console.log(KDV);
 
   return (
     <div className="cart-totals-wrapper h-full max-h-[calc(100vh_-_110px)] flex flex-col">

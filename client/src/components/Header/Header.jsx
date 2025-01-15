@@ -77,7 +77,7 @@ const Header = () => {
             <span className="header-link-span ">Çıkış</span>
           </Link>
         </div>
-        <Badge count="5" className="md:hidden flex">
+        <Badge count={cartItems?.length} className="md:hidden flex">
           <Link
             to={"/cart"}
             className="header-link"
