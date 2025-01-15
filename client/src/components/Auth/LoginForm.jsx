@@ -1,18 +1,52 @@
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Checkbox, Form, Input, message } from "antd";
+import axios from "axios";
 import { Link } from "react-router-dom";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const LoginForm = () => {
+  const [form] = Form.useForm();
+
+  const storedUser = JSON.parse(localStorage.getItem("storedUser"));
+
+  console.log(storedUser);
+  const onFinish = async (values) => {
+    try {
+      const response = await axios.post(`${API_URL}auth/login`, {
+        email: values.email,
+        password: values.password,
+      });
+      const user = response.data;
+      if (response.status === 200) {
+        message.success("Giriş başarılı");
+        form.resetFields();
+        localStorage.setItem("storedUser", JSON.stringify(user));
+        window.location = "/";
+      }
+    } catch (error) {
+      console.log(error);
+      if (error.status === 401) {
+        message.error("Kullanıcı Bilgileri Yanlış");
+      }
+    }
+  };
+
   return (
     <div className="xl:px-20 px-10 w-full flex flex-col h-full justify-center relative">
       <h1 className="text-center text-5xl font-bold mb-2">LOGO</h1>
-      <Form layout="vertical">
+      <Form
+        form={form}
+        onFinish={onFinish}
+        autoComplete="off"
+        layout="vertical"
+      >
         <Form.Item
           label="E-mail"
           name={"email"}
           rules={[
             {
               required: true,
-              message: "E-mail Alanı Boş Bırakılamaz!",
+              message: "E-mail Alanı Boş Bırakılamaz",
             },
           ]}
         >
@@ -24,7 +58,7 @@ const LoginForm = () => {
           rules={[
             {
               required: true,
-              message: "Şifre Alanı Boş Bırakılamaz!",
+              message: "Şifre Alanı Boş Bırakılamaz",
             },
           ]}
         >

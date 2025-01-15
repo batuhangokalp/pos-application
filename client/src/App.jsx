@@ -8,7 +8,7 @@ import Register from "./pages/Auth/Register";
 import Login from "./pages/Auth/Login";
 
 function App() {
-  const storedAuth = JSON.parse(localStorage.getItem("user"));
+  const storedAuth = JSON.parse(localStorage.getItem("storedUser"));
 
   return (
     <BrowserRouter>

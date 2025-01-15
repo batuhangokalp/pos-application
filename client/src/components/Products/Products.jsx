@@ -29,7 +29,7 @@ const Products = ({
           category: values.category,
         });
         if (response.status === 201) {
-          message.success("Ürün başarıyla oluşturuldu!");
+          message.success("Ürün başarıyla oluşturuldu");
           form.resetFields();
           setProductModal(false);
           setProductsData((prev) => [...prev, response.data]);
@@ -45,7 +45,7 @@ const Products = ({
           }
         );
         if (response.status === 200) {
-          message.success("Ürün başarıyla güncellendi!");
+          message.success("Ürün başarıyla güncellendi");
           form.resetFields();
           setProductModal(false);
           setProductsData((prev) =>

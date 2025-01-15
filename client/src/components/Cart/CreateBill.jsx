@@ -17,7 +17,7 @@ const CreateBill = ({ isModalOpen, setIsModalOpen }) => {
           rules={[
             {
               required: true,
-              message: "Müşteri adı zorunlu!",
+              message: "Müşteri adı zorunlu",
             },
           ]}
         >
@@ -27,7 +27,7 @@ const CreateBill = ({ isModalOpen, setIsModalOpen }) => {
           rules={[
             {
               required: true,
-              message: "Telefon numarası alanı zorunlu!",
+              message: "Telefon numarası alanı zorunlu",
             },
           ]}
           name="phoneNumber"
@@ -39,7 +39,7 @@ const CreateBill = ({ isModalOpen, setIsModalOpen }) => {
           rules={[
             {
               required: true,
-              message: "Ödeme yöntemi alanı zorunlu!",
+              message: "Ödeme yöntemi alanı zorunlu",
             },
           ]}
           label="Ödeme Yöntemi"

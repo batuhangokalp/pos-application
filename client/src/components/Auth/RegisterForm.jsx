@@ -1,18 +1,46 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
+import axios from "axios";
 import { Link } from "react-router-dom";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const RegisterForm = () => {
+  const [form] = Form.useForm();
+
+  const onFinish = async (values) => {
+    try {
+      const response = await axios.post(`${API_URL}auth/register`, {
+        username: values.username,
+        email: values.email,
+        password: values.password,
+      });
+      const user = response.data;
+      if (response.status === 201) {
+        message.success("Kayıt başarıyla oluşturuldu");
+        form.resetFields();
+        localStorage.setItem("storedUser", JSON.stringify(user));
+        window.location = "/";
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="xl:px-20 px-10 w-full flex flex-col h-full justify-center relative">
       <h1 className="text-center text-5xl font-bold mb-2">LOGO</h1>
-      <Form layout="vertical">
+      <Form
+        form={form}
+        onFinish={onFinish}
+        autoComplete="off"
+        layout="vertical"
+      >
         <Form.Item
           label="Kullanıcı Adı"
           name={"username"}
           rules={[
             {
               required: true,
-              message: "Kullanıcı Adı Alanı Boş Bırakılamaz!",
+              message: "Kullanıcı Adı Alanı Boş Bırakılamaz",
             },
           ]}
         >
@@ -24,7 +52,7 @@ const RegisterForm = () => {
           rules={[
             {
               required: true,
-              message: "E-mail Alanı Boş Bırakılamaz!",
+              message: "E-mail Alanı Boş Bırakılamaz",
             },
           ]}
         >
@@ -36,7 +64,7 @@ const RegisterForm = () => {
           rules={[
             {
               required: true,
-              message: "Şifre Alanı Boş Bırakılamaz!",
+              message: "Şifre Alanı Boş Bırakılamaz",
             },
           ]}
         >
@@ -49,7 +77,7 @@ const RegisterForm = () => {
           rules={[
             {
               required: true,
-              message: "Şifre Tekrar Alanı Boş Bırakılamaz!",
+              message: "Şifre Tekrar Alanı Boş Bırakılamaz",
             },
             ({ getFieldValue }) => ({
               validator(_, value) {
@@ -57,7 +85,7 @@ const RegisterForm = () => {
                   return Promise.resolve();
                 }
                 return Promise.reject(
-                  new Error("Şifreler aynı olmak zorunda!")
+                  new Error("Şifreler aynı olmak zorunda")
                 );
               },
             }),

@@ -19,7 +19,7 @@ const Categories = ({ categoriesData, setCategoriesData }) => {
           title: values.categoryName,
         });
         if (response.status === 201) {
-          message.success("Kategori başarıyla oluşturuldu!");
+          message.success("Kategori başarıyla oluşturuldu");
           form.resetFields();
           setIsModalOpen(false);
           setCategoriesData((prev) => [...prev, response.data]);
@@ -30,7 +30,7 @@ const Categories = ({ categoriesData, setCategoriesData }) => {
           { title: values.categoryName }
         );
         if (response.status === 200) {
-          message.success("Kategori başarıyla güncellendi!");
+          message.success("Kategori başarıyla güncellendi");
           form.resetFields();
           setIsModalOpen(false);
           setCategoriesData((prev) =>

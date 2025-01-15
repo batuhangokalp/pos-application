@@ -9,7 +9,7 @@ const ProductForm = ({ onFinish, form, categoriesData, type }) => {
         rules={[
           {
             required: true,
-            message: "Ürün adı alanı boş bırakılamaz!",
+            message: "Ürün adı alanı boş bırakılamaz",
           },
         ]}
       >
@@ -22,7 +22,7 @@ const ProductForm = ({ onFinish, form, categoriesData, type }) => {
         rules={[
           {
             required: true,
-            message: "Ürün görseli alanı boş bırakılamaz!",
+            message: "Ürün görseli alanı boş bırakılamaz",
           },
         ]}
       >
@@ -35,7 +35,7 @@ const ProductForm = ({ onFinish, form, categoriesData, type }) => {
         rules={[
           {
             required: true,
-            message: "Ürün fiyatı alanı boş bırakılamaz!",
+            message: "Ürün fiyatı alanı boş bırakılamaz",
           },
         ]}
       >
@@ -48,7 +48,7 @@ const ProductForm = ({ onFinish, form, categoriesData, type }) => {
         rules={[
           {
             required: true,
-            message: "Ürün kategorisi alanı boş bırakılamaz!",
+            message: "Ürün kategorisi alanı boş bırakılamaz",
           },
         ]}
       >

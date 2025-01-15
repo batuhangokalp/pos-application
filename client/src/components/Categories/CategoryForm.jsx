@@ -9,7 +9,7 @@ const CategoryForm = ({ onFinish, form, type }) => {
         rules={[
           {
             required: true,
-            message: "Kategori alanı boş bırakılamaz!",
+            message: "Kategori alanı boş bırakılamaz",
           },
         ]}
       >
