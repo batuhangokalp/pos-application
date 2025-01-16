@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 import { addToCart, removeFromCart } from "../../redux/cartSlice";
 
 const CalculateQuantity = ({ record }) => {
-  console.log(record);
   const dispatch = useDispatch();
 
   const handleAddToCart = (cartItem) => {

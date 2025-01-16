@@ -1,46 +1,63 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 import { Table } from "antd";
 import Header from "../components/Header/Header";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const CustomerPage = () => {
-  const dataSource = [
-    {
-      key: "1",
-      name: "Mike",
-      age: 32,
-      address: "10 Downing Street",
-    },
-    {
-      key: "2",
-      name: "John",
-      age: 42,
-      address: "10 Downing Street",
-    },
-  ];
+  const [billsData, setBillsData] = useState([]);
+
+  useEffect(() => {
+    const fetchBills = async () => {
+      try {
+        const response = await axios.get(`${API_URL}bills`);
+        setBillsData(response.data);
+      } catch (error) {
+        console.error("Hata oluştu:", error);
+      }
+    };
+
+    fetchBills();
+  }, []);
+
+  const uniqueBillsData = billsData.filter(
+    (value, index, self) =>
+      self.findIndex((bill) => bill.customerName === value.customerName) === index
+  );
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("tr-TR");
+  };
 
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
+      title: "Müşteri Adı",
+      dataIndex: "customerName",
+      key: "customerName",
     },
     {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
+      title: "Telefon Numarası",
+      dataIndex: "phoneNumber",
+      key: "phoneNumber",
     },
     {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
+      title: "Oluşturulma Tarihi",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      render: (render) => formatDate(render),
     },
   ];
+
   return (
     <>
       <Header />
-      <div className="px-6 md:pb-0 pb-20 overflow-y-auto max-h-[calc(100vh_-_120px)]">
+      <div className="px-6 overflow-y-auto max-h-[calc(100vh_-_100px)] border-b">
         <h1 className="text-4xl font-bold text-center mb-4">Müşteriler</h1>
         <Table
-          dataSource={dataSource}
+          rowKey={(record) => record._id}
+          dataSource={uniqueBillsData}
           columns={columns}
           bordered
           pagination={false}

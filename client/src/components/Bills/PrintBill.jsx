@@ -1,11 +1,10 @@
 import { Button, Modal } from "antd";
 import { useRef } from "react";
-// import { useReactToPrint } from "react-to-print";
+import { useReactToPrint } from "react-to-print";
 const PrintBill = ({ isModalOpen, setIsModalOpen, customerBill }) => {
-  const componentRef = useRef();
-//   const handlePrint = useReactToPrint({
-//     content: () => componentRef.current,
-//   });
+  const componentRef = useRef(null);
+
+  const handlePrint = useReactToPrint({ content: () => componentRef.current });
 
   return (
     <Modal
@@ -15,7 +14,7 @@ const PrintBill = ({ isModalOpen, setIsModalOpen, customerBill }) => {
       onCancel={() => setIsModalOpen(false)}
       width={800}
     >
-      <section className="py-20 bg-black" ref={componentRef}>
+      <section className=" mb-10 bg-black" ref={componentRef}>
         <div className="max-w-5xl mx-auto bg-white px-6">
           <article className="overflow-hidden">
             <div className="logo my-6">
@@ -76,7 +75,7 @@ const PrintBill = ({ isModalOpen, setIsModalOpen, customerBill }) => {
                       className="py-3.5 text-left text-sm font-normal text-slate-700 md:pl-0 sm:table-cell hidden"
                     >
                       {" "}
-                      Başlık
+                      Ürün Adı
                     </th>
                     <th
                       colSpan={4}
@@ -84,7 +83,7 @@ const PrintBill = ({ isModalOpen, setIsModalOpen, customerBill }) => {
                       className="py-3.5 text-left text-sm font-normal text-slate-700 md:pl-0 sm:hidden"
                     >
                       {" "}
-                      Başlık
+                      Ürün Adı
                     </th>
                     <th
                       scope="col"
@@ -174,7 +173,9 @@ const PrintBill = ({ isModalOpen, setIsModalOpen, customerBill }) => {
                       colSpan="4"
                       scope="row"
                     >
-                      <span className="font-normal text-slate-700">+%8 KDV</span>
+                      <span className="font-normal text-slate-700">
+                        +%8 KDV
+                      </span>
                     </th>
                     <th
                       className="text-left pt-4 sm:hidden"
@@ -214,27 +215,12 @@ const PrintBill = ({ isModalOpen, setIsModalOpen, customerBill }) => {
                   </tr>
                 </tfoot>
               </table>
-              <div className="py-9">
-                <div className="border-t pt-9 border-slate-200">
-                  <p className="text-sm font-light text-slate-700">
-                    Ödeme koşulları 14 gündür. Paketlenmemiş Borçların Geç
-                    Ödenmesi Yasası 0000'e göre, serbest çalışanların bu süreden
-                    sonra borçların ödenmemesi durumunda 00.00 gecikme ücreti
-                    talep etme hakkına sahip olduklarını ve bu noktada bu ücrete
-                    ek olarak yeni bir fatura sunulacağını lütfen unutmayın.
-                    Revize faturanın 14 gün içinde ödenmemesi durumunda, vadesi
-                    geçmiş hesaba ek faiz ve %8 yasal oran artı %0,5 Bank of
-                    England tabanı olmak üzere toplam %8,5 uygulanacaktır.
-                    Taraflar Kanun hükümleri dışında sözleşme yapamazlar.
-                  </p>
-                </div>
-              </div>
             </div>
           </article>
         </div>
       </section>
       <div className="flex justify-end mt-4">
-        <Button type="primary" size="large" onClick={null}>
+        <Button type="primary" size="large" onClick={handlePrint}>
           Yazdır
         </Button>
       </div>
