@@ -1,8 +1,9 @@
 import { Button, Card, Table } from "antd";
-import Header from "../components/Header/Header";
 import { useState } from "react";
-import CreateBill from "../components/Cart/CreateBill";
 import { useSelector } from "react-redux";
+import Header from "../components/Header/Header";
+import CreateBill from "../components/Cart/CreateBill";
+import CalculateQuantity from "../components/Products/CalculateQuantity";
 
 const CartPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -14,15 +15,9 @@ const CartPage = () => {
       title: "Ürün Görseli",
       dataIndex: "img",
       key: "img",
+      width: "125px",
       render: (img) => (
-        <img
-          src={img}
-          alt="Avatar"
-          style={{
-            width: "60px",
-            height: "60px",
-          }}
-        />
+        <img src={img} alt="img" className="w-full h-16 object-cover" />
       ),
     },
     {
@@ -40,6 +35,7 @@ const CartPage = () => {
       title: "Ürün Miktarı",
       dataIndex: "quantity",
       key: "quantity",
+      render: (text, record) => <CalculateQuantity record={record} />,
     },
   ];
 

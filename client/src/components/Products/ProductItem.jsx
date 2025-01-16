@@ -1,14 +1,14 @@
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/cartSlice";
 
-const ProductItem = ({ product, quantity }) => {
+const ProductItem = ({ product }) => {
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
     const body = {
       ...product,
+      quantity: 1,
     };
-    body.quantity = quantity + 1;
 
     dispatch(addToCart(body));
   };

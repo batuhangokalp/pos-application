@@ -1,24 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "antd";
-import { addToCart, clearCart, removeFromCart } from "../../redux/cartSlice";
-import {
-  ClearOutlined,
-  MinusCircleOutlined,
-  PlusCircleOutlined,
-} from "@ant-design/icons";
+import { clearCart } from "../../redux/cartSlice";
+import { ClearOutlined } from "@ant-design/icons";
+import CalculateQuantity from "../Products/CalculateQuantity";
 
 const CartTotals = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
   const dispatch = useDispatch();
-
-  const handleAddToCart = (cartItem) => {
-    dispatch(addToCart(cartItem));
-  };
-
-  const handleRemoveFromCart = (cartItem) => {
-    dispatch(removeFromCart(cartItem));
-  };
-
   const handleClearCart = () => {
     dispatch(clearCart());
   };
@@ -37,7 +25,7 @@ const CartTotals = () => {
         Sepetteki Ürünler
       </h2>
       <ul className="cart-items px-2 flex flex-col gap-y-3 py-2 overflow-y-auto">
-        {cartItems?.length > 0 &&
+        {cartItems?.length > 0 ? (
           cartItems?.map((cartItem) => (
             <li className="cart-item flex justify-between" key={cartItem._id}>
               <div className="flex items-center">
@@ -53,27 +41,12 @@ const CartTotals = () => {
                   </span>
                 </div>
               </div>
-              <div className="flex items-center gap-x-1">
-                <Button
-                  type="primary"
-                  size="small"
-                  className="w-full rounded-full items-center justify-center"
-                  onClick={() => handleRemoveFromCart(cartItem)}
-                  icon={<MinusCircleOutlined />}
-                />
-                <span className="font-bold px-2">
-                  <span>{cartItem?.quantity}</span>
-                </span>
-                <Button
-                  type="primary"
-                  size="small"
-                  className="w-full rounded-full items-center justify-center"
-                  onClick={() => handleAddToCart(cartItem)}
-                  icon={<PlusCircleOutlined />}
-                />
-              </div>
+              <CalculateQuantity record={cartItem} />
             </li>
-          ))}
+          ))
+        ) : (
+          <h2>Sepette ürün yok..</h2>
+        )}
       </ul>
       <div className="cart-totals mt-auto">
         <div className="border-t border-b">

@@ -11,8 +11,6 @@ const Products = ({
   productsData,
   setProductsData,
   categoriesData,
-  quantity,
-  setQuantity,
 }) => {
   const [productModal, setProductModal] = useState(false);
   const [type, setType] = useState("add");
@@ -115,8 +113,6 @@ const Products = ({
               </div>
               <ProductItem
                 product={product}
-                quantity={quantity}
-                setQuantity={setQuantity}
               />
             </div>
           ))}

@@ -10,7 +10,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 const HomePage = () => {
   const [categoriesData, setCategoriesData] = useState([]);
   const [productsData, setProductsData] = useState([]);
-  const [quantity, setQuantity] = useState(0);
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -32,7 +32,7 @@ const HomePage = () => {
   return (
     <>
       <Header />
-      <div className="home px-6 flex md:flex-row flex-col justify-between gap-10 md:pb-0 pb-20">
+      <div className="home px-6 flex md:flex-row flex-col justify-between gap-10 md:pb-0 pb-20 md:h-screen">
         <div className="categories min-w-[150px] overflow-auto max-h-[calc(100vh_-_112px)] md:pb-10">
           <Categories
             categoriesData={categoriesData}
@@ -44,12 +44,10 @@ const HomePage = () => {
             productsData={productsData}
             setProductsData={setProductsData}
             categoriesData={categoriesData}
-            quantity={quantity}
-            setQuantity={setQuantity}
           />
         </div>
-        <div className="cart-totals min-w-[300px] border">
-          <CartTotals quantity={quantity} setQuantity={setQuantity} />
+        <div className="cart-totals min-w-[300px] border overflow-auto max-h-[calc(100vh_-_112px)]">
+          <CartTotals />
         </div>
       </div>
     </>
