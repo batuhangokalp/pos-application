@@ -1,41 +1,49 @@
 import { Button, Card, Table } from "antd";
 import Header from "../components/Header/Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PrintBill from "../components/Bills/PrintBill";
+import axios from "axios";
+
+const API_URL = process.env.REACT_APP_API_URL;
 
 const BillPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [billsData, setBillsData] = useState([]);
 
-  const dataSource = [
-    {
-      key: "1",
-      name: "Mike",
-      age: 32,
-      address: "10 Downing Street",
-    },
-    {
-      key: "2",
-      name: "John",
-      age: 42,
-      address: "10 Downing Street",
-    },
-  ];
+  useEffect(() => {
+    const fetchBills = async () => {
+      try {
+        const response = await axios.get(`${API_URL}bills`);
+        setBillsData(response.data);
+      } catch (error) {
+        console.error("Hata oluştu:", error);
+      }
+    };
+
+    fetchBills();
+  }, []);
 
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
+      title: "Müşteri İsmi",
+      dataIndex: "customerName",
+      key: "customerName",
     },
     {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
+      title: "Telefon Numarası",
+      dataIndex: "phoneNumber",
+      key: "phoneNumber",
     },
     {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
+      title: "Ödeme Yöntemi",
+      dataIndex: "paymentMethod",
+      key: "paymentMethod",
+    },
+    {
+      title: "Ödeme Tutarı",
+      dataIndex: "totalAmount",
+      key: "totalAmount",
+      render: (render) => `${render.toFixed(2)} ₺`,
     },
   ];
   return (
@@ -44,7 +52,8 @@ const BillPage = () => {
       <div className="px-6">
         <h1 className="text-4xl font-bold text-center mb-4">Faturalar</h1>
         <Table
-          dataSource={dataSource}
+          rowKey={(record) => record._id}
+          dataSource={billsData}
           columns={columns}
           bordered
           pagination={false}

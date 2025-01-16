@@ -7,9 +7,6 @@ const API_URL = process.env.REACT_APP_API_URL;
 const LoginForm = () => {
   const [form] = Form.useForm();
 
-  const storedUser = JSON.parse(localStorage.getItem("storedUser"));
-
-  console.log(storedUser);
   const onFinish = async (values) => {
     try {
       const response = await axios.post(`${API_URL}auth/login`, {

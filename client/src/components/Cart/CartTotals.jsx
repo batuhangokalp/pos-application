@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "antd";
+import { addToCart, clearCart, removeFromCart } from "../../redux/cartSlice";
 import {
   ClearOutlined,
   MinusCircleOutlined,
   PlusCircleOutlined,
 } from "@ant-design/icons";
-import { addToCart, removeFromCart } from "../../redux/cartSlice";
 
 const CartTotals = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
@@ -17,6 +17,10 @@ const CartTotals = () => {
 
   const handleRemoveFromCart = (cartItem) => {
     dispatch(removeFromCart(cartItem));
+  };
+
+  const handleClearCart = () => {
+    dispatch(clearCart());
   };
 
   const getTotalPrice = () => {
@@ -91,8 +95,14 @@ const CartTotals = () => {
           </div>
         </div>
         <div className="py-4 px-2">
-          <Button type="primary" size="large" className="w-full">
-            Sipariş Oluştur
+          <Button
+            type="primary"
+            size="large"
+            className="w-full"
+            disabled={cartItems.length < 1}
+            onClick={() => (window.location.href = "/cart")}
+          >
+            Sepete Git
           </Button>
           <Button
             type="primary"
@@ -100,6 +110,8 @@ const CartTotals = () => {
             className="w-full mt-2"
             danger
             icon={<ClearOutlined />}
+            disabled={cartItems.length < 1}
+            onClick={handleClearCart}
           >
             Temizle
           </Button>

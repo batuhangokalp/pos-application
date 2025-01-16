@@ -8,7 +8,7 @@ const CartPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const cartItems = useSelector((state) => state.cart.cartItems);
-  
+
   const columns = [
     {
       title: "Ürün Görseli",
@@ -81,12 +81,18 @@ const CartPage = () => {
             type="primary"
             size="large"
             onClick={() => setIsModalOpen(true)}
+            disabled={cartItems.length < 1}
           >
             Sipariş Oluştur
           </Button>
         </Card>
       </div>
-      <CreateBill isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      <CreateBill
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        getTotalPrice={getTotalPrice}
+        KDV={KDV}
+      />
     </>
   );
 };

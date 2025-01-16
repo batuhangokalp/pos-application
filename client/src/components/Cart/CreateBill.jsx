@@ -1,7 +1,39 @@
-import { Button, Card, Form, Input, Modal, Select } from "antd";
-const CreateBill = ({ isModalOpen, setIsModalOpen }) => {
-  const onFinish = (values) => {
-    console.log("Success:", values);
+import { Button, Card, Form, Input, message, Modal, Select } from "antd";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { clearCart } from "../../redux/cartSlice";
+
+const API_URL = process.env.REACT_APP_API_URL;
+
+const CreateBill = ({ isModalOpen, setIsModalOpen, getTotalPrice, KDV }) => {
+  const [form] = Form.useForm();
+  const dispatch = useDispatch();
+
+  const cartItems = useSelector((state) => state.cart.cartItems);
+
+  const onFinish = async (values) => {
+    try {
+      const response = await axios.post(`${API_URL}bills`, {
+        customerName: values.customerName,
+        phoneNumber: values.phoneNumber,
+        paymentMethod: values.paymentMethod,
+        cartItems: cartItems,
+        subTotal: getTotalPrice(),
+        tax: KDV,
+        totalAmount: getTotalPrice() + KDV,
+      });
+      if (response.status === 201) {
+        message.success("Sipariş başarıyla oluşturuldu");
+        form.resetFields();
+        setIsModalOpen(false);
+        dispatch(clearCart());
+      }
+    } catch (error) {
+      console.log(error);
+      // if (error.status === 401) {
+      //   message.error("Kullanıcı Bilgileri Yanlış");
+      // }
+    }
   };
   return (
     <Modal
@@ -10,7 +42,12 @@ const CreateBill = ({ isModalOpen, setIsModalOpen }) => {
       footer={false}
       onCancel={() => setIsModalOpen(false)}
     >
-      <Form layout={"vertical"} onFinish={onFinish}>
+      <Form
+        form={form}
+        onFinish={onFinish}
+        autoComplete="off"
+        layout="vertical"
+      >
         <Form.Item
           label="Müşteri Adı"
           name="customerName"
@@ -53,15 +90,15 @@ const CreateBill = ({ isModalOpen, setIsModalOpen }) => {
         <Card>
           <div className="flex justify-between">
             <span>Ara Toplam</span>
-            <span>549.00₺</span>
+            <span>{getTotalPrice()?.toFixed(2)} ₺</span>
           </div>
           <div className="flex justify-between my-2">
-            <span>KDV Toplam %8</span>
-            <span className="text-red-600">+43.92₺</span>
+            <span>KDV %8</span>
+            <span className="text-red-600">+{KDV.toFixed(2)} ₺</span>
           </div>
           <div className="flex justify-between">
             <b>Toplam</b>
-            <b>592.92₺</b>
+            <b> {(getTotalPrice() + KDV).toFixed(2)} ₺</b>
           </div>
           <div className="flex justify-end">
             <Button
@@ -69,6 +106,7 @@ const CreateBill = ({ isModalOpen, setIsModalOpen }) => {
               type="primary"
               onClick={() => setIsModalOpen(true)}
               htmlType="submit"
+              disabled={cartItems.length < 1}
             >
               Sipariş Oluştur
             </Button>
