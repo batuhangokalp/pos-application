@@ -49,7 +49,7 @@ const CartPage = () => {
   return (
     <>
       <Header />
-      <div className="px-6">
+      <div className="px-6 overflow-y-auto max-h-[calc(100vh_-_300px)] border-b">
         <Table
           rowKey={(record) => record._id}
           dataSource={cartItems}
@@ -58,7 +58,7 @@ const CartPage = () => {
           pagination={false}
         />
       </div>
-      <div className="cart-total flex justify-end mt-4">
+      <div className="cart-total flex justify-end mt-4 fixed bottom-0 right-0">
         <Card className="w-72">
           <div className="flex justify-between">
             <span>Ara Toplam</span>

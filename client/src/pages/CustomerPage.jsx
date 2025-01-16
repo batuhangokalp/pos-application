@@ -15,6 +15,7 @@ const CustomerPage = () => {
       age: 42,
       address: "10 Downing Street",
     },
+    
   ];
 
   const columns = [
@@ -37,7 +38,7 @@ const CustomerPage = () => {
   return (
     <>
       <Header />
-      <div className="px-6">
+      <div className="px-6 md:pb-0 pb-20 overflow-y-auto max-h-[calc(100vh_-_120px)]">
         <h1 className="text-4xl font-bold text-center mb-4">Müşteriler</h1>
         <Table
           dataSource={dataSource}

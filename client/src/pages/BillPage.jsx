@@ -49,7 +49,7 @@ const BillPage = () => {
   return (
     <>
       <Header />
-      <div className="px-6">
+      <div className="px-6 overflow-y-auto max-h-[calc(100vh_-_300px)] border-b">
         <h1 className="text-4xl font-bold text-center mb-4">Faturalar</h1>
         <Table
           rowKey={(record) => record._id}
@@ -59,7 +59,7 @@ const BillPage = () => {
           pagination={false}
         />
       </div>
-      <div className="cart-total flex justify-end mt-4">
+      <div className="cart-total flex justify-end mt-4 fixed bottom-0 right-0">
         <Card className="w-72">
           <Button
             className="mt-4 w-full"

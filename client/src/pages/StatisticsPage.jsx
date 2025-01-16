@@ -93,7 +93,7 @@ const StatisticsPage = () => {
   return (
     <>
       <Header />
-      <div className="px-6 md:pb-0 pb-20">
+      <div className="px-6 md:pb-0 pb-20 overflow-y-auto max-h-[calc(100vh_-_120px)]">
         <h1 className="text-4xl font-bold text-center mb-4">İstatistikler</h1>
         <div>
           <h2 className="text-lg">
