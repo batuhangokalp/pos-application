@@ -32,6 +32,13 @@ const CartPage = () => {
       render: (price) => `${price.toFixed(2)} ₺`,
     },
     {
+      title: "Toplam Fiyat (+%8 KDV)",
+      dataIndex: "price",
+      key: "price",
+      render: (text, record) =>
+        `${(record.price * record.quantity * 1.08).toFixed(2)} ₺`,
+    },
+    {
       title: "Ürün Miktarı",
       dataIndex: "quantity",
       key: "quantity",
@@ -56,6 +63,10 @@ const CartPage = () => {
           columns={columns}
           bordered
           pagination={false}
+          scroll={{
+            x:1200,
+            y:300,
+          }}
         />
       </div>
       <div className="cart-total flex justify-end mt-4 fixed bottom-0 right-0">

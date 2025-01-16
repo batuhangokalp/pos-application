@@ -9,6 +9,12 @@ const API_URL = process.env.REACT_APP_API_URL;
 const BillPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [billsData, setBillsData] = useState([]);
+  const [customerBill, setCustomerBill] = useState();
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("tr-TR");
+  };
 
   useEffect(() => {
     const fetchBills = async () => {
@@ -22,6 +28,11 @@ const BillPage = () => {
 
     fetchBills();
   }, []);
+
+  const openPrintBill = (lineItem) => {
+    setIsModalOpen(true);
+    setCustomerBill(lineItem);
+  };
 
   const columns = [
     {
@@ -45,6 +56,28 @@ const BillPage = () => {
       key: "totalAmount",
       render: (render) => `${render.toFixed(2)} ₺`,
     },
+    {
+      title: "Ödeme Tarihi",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      render: (render) => formatDate(render),
+    },
+    {
+      title: "İşlem",
+      dataIndex: "action",
+      key: "action",
+      render: (text, render) => {
+        return (
+          <Button
+            type="link"
+            className="pl-0"
+            onClick={() => openPrintBill(render)}
+          >
+            Yazdır
+          </Button>
+        );
+      },
+    },
   ];
   return (
     <>
@@ -57,21 +90,13 @@ const BillPage = () => {
           columns={columns}
           bordered
           pagination={false}
+          scroll={{
+            x: 1000,
+            y: 300,
+          }}
         />
       </div>
-      <div className="cart-total flex justify-end mt-4 fixed bottom-0 right-0">
-        <Card className="w-72">
-          <Button
-            className="mt-4 w-full"
-            type="primary"
-            size="large"
-            onClick={() => setIsModalOpen(true)}
-          >
-            Yazdır
-          </Button>
-        </Card>
-      </div>
-      <PrintBill isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      <PrintBill isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} customerBill={customerBill}/>
     </>
   );
 };

@@ -1,7 +1,7 @@
 import { Button, Modal } from "antd";
 import { useRef } from "react";
 // import { useReactToPrint } from "react-to-print";
-const PrintBill = ({ isModalOpen, setIsModalOpen, customer }) => {
+const PrintBill = ({ isModalOpen, setIsModalOpen, customerBill }) => {
   const componentRef = useRef();
 //   const handlePrint = useReactToPrint({
 //     content: () => componentRef.current,
@@ -25,7 +25,7 @@ const PrintBill = ({ isModalOpen, setIsModalOpen, customer }) => {
               <div className="grid sm:grid-cols-4 grid-cols-3 gap-12">
                 <div className="text-md text-slate-500">
                   <p className="font-bold text-slate-700">Fatura Detayı:</p>
-                  <p className="text-green-600">{customer?.customerName}</p>
+                  <p className="text-green-600">{customerBill?.customerName}</p>
                   <p> Fake Street 123</p>
                   <p> San Javier </p>
                   <p> CA 1234</p>
@@ -46,7 +46,7 @@ const PrintBill = ({ isModalOpen, setIsModalOpen, customer }) => {
                     <p className="font-bold text-slate-700 mt-2">
                       Veriliş Tarihi:
                     </p>
-                    <p>{customer?.createdAt.substring(0, 10)}</p>
+                    <p>{customerBill?.createdAt.substring(0, 10)}</p>
                   </div>
                 </div>
                 <div className="text-md text-slate-500 sm:block hidden">
@@ -107,8 +107,8 @@ const PrintBill = ({ isModalOpen, setIsModalOpen, customer }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {customer?.cartItems.map((item) => (
-                    <tr className="border-b border-slate-200">
+                  {customerBill?.cartItems.map((item) => (
+                    <tr className="border-b border-slate-200" key={item?._id}>
                       <td className="py-4 sm:table-cell hidden">
                         <img
                           src={item.img}
@@ -164,7 +164,7 @@ const PrintBill = ({ isModalOpen, setIsModalOpen, customer }) => {
                     </th>
                     <th className="text-right pt-4" scope="row">
                       <span className="font-normal text-slate-700">
-                        {customer?.subTotal}₺
+                        {customerBill?.subTotal.toFixed(2)} ₺
                       </span>
                     </th>
                   </tr>
@@ -174,7 +174,7 @@ const PrintBill = ({ isModalOpen, setIsModalOpen, customer }) => {
                       colSpan="4"
                       scope="row"
                     >
-                      <span className="font-normal text-slate-700">KDV</span>
+                      <span className="font-normal text-slate-700">+%8 KDV</span>
                     </th>
                     <th
                       className="text-left pt-4 sm:hidden"
@@ -185,7 +185,7 @@ const PrintBill = ({ isModalOpen, setIsModalOpen, customer }) => {
                     </th>
                     <th className="text-right pt-4" scope="row">
                       <span className="font-normal text-red-600">
-                        +{customer?.tax}₺
+                        +{customerBill?.tax.toFixed(2)}₺
                       </span>
                     </th>
                   </tr>
@@ -208,7 +208,7 @@ const PrintBill = ({ isModalOpen, setIsModalOpen, customer }) => {
                     </th>
                     <th className="text-right pt-4" scope="row">
                       <span className="font-normal text-slate-700">
-                        {customer?.totalAmount}₺
+                        {customerBill?.totalAmount.toFixed(2)}₺
                       </span>
                     </th>
                   </tr>

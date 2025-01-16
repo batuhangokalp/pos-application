@@ -15,7 +15,6 @@ const CustomerPage = () => {
       age: 42,
       address: "10 Downing Street",
     },
-    
   ];
 
   const columns = [
@@ -45,6 +44,10 @@ const CustomerPage = () => {
           columns={columns}
           bordered
           pagination={false}
+          scroll={{
+            x: 1200,
+            y: 300,
+          }}
         />
       </div>
     </>
