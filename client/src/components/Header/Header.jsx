@@ -11,7 +11,7 @@ import {
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 
-const Header = () => {
+const Header = ({ setSearchProducts }) => {
   const cartItems = useSelector((state) => state.cart.cartItems);
 
   const handleExit = () => {
@@ -32,6 +32,7 @@ const Header = () => {
             placeholder="Ürün Ara.."
             prefix={<SearchOutlined />}
             className="rounded-full max-w-[800px]"
+            onChange={(e) => setSearchProducts(e.target.value)}
           />
         </div>
         <div className="menu-links flex justify-between items-center gap-7 md:static fixed z-50 bottom-0 left-0 md:w-auto w-full bg-white md:bg-transparent md:border-t-0 border-t md:px-0 px-4 py-1">

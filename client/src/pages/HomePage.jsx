@@ -10,7 +10,10 @@ const API_URL = process.env.REACT_APP_API_URL;
 const HomePage = () => {
   const [categoriesData, setCategoriesData] = useState([]);
   const [productsData, setProductsData] = useState([]);
-  
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [categoryName, setCategoryName] = useState("Tümü");
+  const [searchedProducts, setSearchProducts] = useState("");
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -28,15 +31,16 @@ const HomePage = () => {
 
     fetchData();
   }, []);
-
   return (
     <>
-      <Header />
+      <Header setSearchProducts={setSearchProducts} />
       <div className="home px-6 flex md:flex-row flex-col justify-between gap-10 md:pb-0 pb-20 md:h-screen">
         <div className="categories min-w-[150px] overflow-auto max-h-[calc(100vh_-_112px)] md:pb-10">
           <Categories
             categoriesData={categoriesData}
             setCategoriesData={setCategoriesData}
+            categoryName={categoryName}
+            setCategoryName={setCategoryName}
           />
         </div>
         <div className="products flex-[8] overflow-auto max-h-[calc(100vh_-_112px)] pb-10">
@@ -44,6 +48,10 @@ const HomePage = () => {
             productsData={productsData}
             setProductsData={setProductsData}
             categoriesData={categoriesData}
+            filteredProducts={filteredProducts}
+            setFilteredProducts={setFilteredProducts}
+            categoryName={categoryName}
+            searchedProducts={searchedProducts}
           />
         </div>
         <div className="cart-totals min-w-[300px] border overflow-auto max-h-[calc(100vh_-_112px)]">

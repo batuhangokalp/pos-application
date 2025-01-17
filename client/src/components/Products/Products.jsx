@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { Form, message, Modal, Popconfirm } from "antd";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
@@ -11,11 +11,33 @@ const Products = ({
   productsData,
   setProductsData,
   categoriesData,
+  filteredProducts,
+  setFilteredProducts,
+  categoryName,
+  searchedProducts,
 }) => {
   const [productModal, setProductModal] = useState(false);
   const [type, setType] = useState("add");
   const [currentProduct, setCurrentProduct] = useState(null);
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    let filtered = productsData;
+
+    if (categoryName !== "Tümü") {
+      filtered = filtered.filter(
+        (product) => product?.category === categoryName
+      );
+    }
+
+    if (searchedProducts) {
+      filtered = filtered.filter((product) =>
+        product.title.toLowerCase().includes(searchedProducts.toLowerCase())
+      );
+    }
+
+    setFilteredProducts(filtered);
+  }, [categoryName, searchedProducts, productsData, setFilteredProducts]);
 
   const onFinish = async (values) => {
     try {
@@ -90,7 +112,7 @@ const Products = ({
     <>
       <div className="product-wrapper grid grid-cols-card gap-4">
         {productsData?.length > 0 &&
-          productsData?.map((product) => (
+          filteredProducts?.map((product) => (
             <div key={product?._id} className="relative group">
               <div className="absolute top-1 right-1 hidden group-hover:flex gap-1">
                 <button
@@ -111,9 +133,7 @@ const Products = ({
                   </button>
                 </Popconfirm>
               </div>
-              <ProductItem
-                product={product}
-              />
+              <ProductItem product={product} />
             </div>
           ))}
         <div

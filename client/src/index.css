@@ -11,8 +11,17 @@ body {
 }
 
 .category-button {
-  @apply bg-cyan-700 px-6 py-10 text-white hover:cursor-pointer hover:bg-blue-700 transition-all text-center;
+  @apply bg-cyan-700 px-6 py-10 text-white hover:cursor-pointer transition-all text-center;
 }
+
+.category-button:hover {
+  @apply bg-blue-700;
+}
+
+.category-button.selected {
+  @apply bg-blue-700;
+}
+
 
 .delete-button {
   @apply text-white p-1 rounded bg-red-400 hover:bg-red-600;

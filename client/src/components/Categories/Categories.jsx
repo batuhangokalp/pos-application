@@ -6,7 +6,12 @@ import CategoryForm from "./CategoryForm";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-const Categories = ({ categoriesData, setCategoriesData }) => {
+const Categories = ({
+  categoriesData,
+  setCategoriesData,
+  categoryName,
+  setCategoryName,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [type, setType] = useState("add");
   const [currentCategory, setCurrentCategory] = useState(null);
@@ -70,12 +75,23 @@ const Categories = ({ categoriesData, setCategoriesData }) => {
   return (
     <>
       <ul className="flex md:flex-col gap-4 text-lg">
-        <li className="category-button">
+        <li
+          className={`category-button ${
+            categoryName === "Tümü" ? "selected" : ""
+          }`}
+          onClick={() => setCategoryName("Tümü")}
+        >
           <span>Tümü</span>
         </li>
         {categoriesData?.length > 0 &&
           categoriesData.map((category) => (
-            <li key={category._id} className="relative category-button group">
+            <li
+              key={category._id}
+              className={`category-button ${
+                category.title === categoryName ? "selected" : ""
+              }`}
+              onClick={() => setCategoryName(category.title)}
+            >
               <span>{category.title}</span>
               <div className="absolute top-1 right-1 hidden group-hover:flex gap-1">
                 <button
