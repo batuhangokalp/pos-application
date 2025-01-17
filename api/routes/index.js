@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
 
-const categoryRoute = require("./categories.js");
-const productRoute = require("./products.js");
-const billRoute = require("./bills.js");
-const authRoute = require("./auth.js");
-const userRoute = require("./users.js");
+const categoryRoute = require("../controllers/categoryController.js");
+const productRoute = require("../controllers/productController.js");
+const billRoute = require("../controllers/billController.js");
+const authRoute = require("../controllers/authController.js");
+const userRoute = require("../controllers/userController.js");
 
 router.use("/categories", categoryRoute);
 router.use("/products", productRoute);
