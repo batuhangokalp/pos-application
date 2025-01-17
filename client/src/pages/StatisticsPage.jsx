@@ -57,36 +57,46 @@ const StatisticsPage = () => {
   const uniqueCustomers = handleFindTotalCustomer();
 
   const config = {
-    data: {
-      type: "fetch",
-      value: "https://assets.antv.antgroup.com/g2/aapl.json",
+    data: billsData,
+    xField: "customerName",
+    yField: "subTotal",
+    xAxis: {
+      range: [0, 1],
     },
-    xField: (d) => new Date(d.date),
-    yField: "close",
   };
 
   const config2 = {
-    data: [
-      { type: "分类一", value: 27 },
-      { type: "分类二", value: 25 },
-      { type: "分类三", value: 18 },
-      { type: "分类四", value: 15 },
-      { type: "分类五", value: 10 },
-      { type: "其他", value: 5 },
-    ],
-    angleField: "value",
-    colorField: "type",
+    appendPadding: 10,
+    data: billsData,
+    angleField: "subTotal",
+    colorField: "customerName",
+    radius: 1,
+    innerRadius: 0.6,
     label: {
-      text: "value",
+      offset: "-50%",
+      content: "{value}",
       style: {
-        fontWeight: "bold",
+        textAlign: "center",
+        fontSize: 14,
       },
     },
-    legend: {
-      color: {
-        title: false,
-        position: "right",
-        rowPadding: 5,
+    interactions: [
+      {
+        type: "element-selected",
+      },
+      {
+        type: "element-active",
+      },
+    ],
+    statistic: {
+      title: false,
+      content: {
+        style: {
+          whiteSpace: "pre-wrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+        },
+        content: "Toplam\nDeğer",
       },
     },
   };
@@ -129,9 +139,10 @@ const StatisticsPage = () => {
           <div className="lg:w-1/2 lg:h-full h-72">
             <Area {...config} />
           </div>
-          <div className="lg:w-1/2 lg:h-full h-72">
-            <Pie {...config2} />
-          </div>
+          <div className="relative lg:w-1/2 lg:h-full h-72 flex items-center justify-center">
+  <Pie {...config2} />
+</div>
+
         </div>
       </div>
     </>
