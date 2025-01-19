@@ -13,7 +13,7 @@ const CreateBill = ({ isModalOpen, setIsModalOpen, getTotalPrice, KDV }) => {
 
   const onFinish = async (values) => {
     try {
-      const response = await axios.post(`${API_URL}bills`, {
+      const response = await axios.post(`${API_URL}/api/bills`, {
         customerName: values.customerName,
         phoneNumber: values.phoneNumber,
         paymentMethod: values.paymentMethod,

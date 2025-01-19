@@ -9,7 +9,7 @@ const LoginForm = () => {
 
   const onFinish = async (values) => {
     try {
-      const response = await axios.post(`${API_URL}auth/login`, {
+      const response = await axios.post(`${API_URL}/api/auth/login`, {
         email: values.email,
         password: values.password,
       });

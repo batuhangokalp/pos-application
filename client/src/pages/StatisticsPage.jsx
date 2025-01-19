@@ -16,8 +16,8 @@ const StatisticsPage = () => {
     const fetchData = async () => {
       try {
         const [productsResponse, billsResponse] = await Promise.all([
-          axios.get(`${API_URL}products`),
-          axios.get(`${API_URL}bills`),
+          axios.get(`${API_URL}/api/products`),
+          axios.get(`${API_URL}/api/bills`),
         ]);
 
         setProductData(productsResponse.data);

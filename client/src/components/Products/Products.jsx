@@ -42,7 +42,7 @@ const Products = ({
   const onFinish = async (values) => {
     try {
       if (type === "add") {
-        const response = await axios.post(`${API_URL}products`, {
+        const response = await axios.post(`${API_URL}/api/products`, {
           title: values.title,
           img: values.img,
           price: values.price,
@@ -56,7 +56,7 @@ const Products = ({
         }
       } else if (type === "edit") {
         const response = await axios.put(
-          `${API_URL}products/${currentProduct._id}`,
+          `${API_URL}/api/products/${currentProduct._id}`,
           {
             title: values.title,
             img: values.img,
@@ -82,7 +82,7 @@ const Products = ({
 
   const handleDeleteProduct = async (productId) => {
     try {
-      await axios.delete(`${API_URL}products/${productId}`);
+      await axios.delete(`${API_URL}/api/products/${productId}`);
       setProductsData((prevProducts) =>
         prevProducts.filter((product) => product._id !== productId)
       );

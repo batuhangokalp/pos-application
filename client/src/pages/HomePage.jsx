@@ -19,8 +19,8 @@ const HomePage = () => {
     const fetchData = async () => {
       try {
         const [categoriesResponse, productsResponse] = await Promise.all([
-          axios.get(`${API_URL}categories`),
-          axios.get(`${API_URL}products`),
+          axios.get(`${API_URL}/api/categories`),
+          axios.get(`${API_URL}/api/products`),
         ]);
 
         setCategoriesData(categoriesResponse.data);

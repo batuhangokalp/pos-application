@@ -14,7 +14,7 @@ const CustomerPage = () => {
   useEffect(() => {
     const fetchBills = async () => {
       try {
-        const response = await axios.get(`${API_URL}bills`);
+        const response = await axios.get(`${API_URL}/api/bills`);
         setBillsData(response.data);
       } catch (error) {
         console.error("Hata oluştu:", error);

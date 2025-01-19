@@ -20,7 +20,7 @@ const Categories = ({
   const onFinish = async (values) => {
     try {
       if (type === "add") {
-        const response = await axios.post(`${API_URL}categories`, {
+        const response = await axios.post(`${API_URL}/api/categories`, {
           title: values.categoryName,
         });
         if (response.status === 201) {

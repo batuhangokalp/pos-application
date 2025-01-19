@@ -9,7 +9,7 @@ const RegisterForm = () => {
 
   const onFinish = async (values) => {
     try {
-      const response = await axios.post(`${API_URL}auth/register`, {
+      const response = await axios.post(`${API_URL}/api/auth/register`, {
         username: values.username,
         email: values.email,
         password: values.password,
