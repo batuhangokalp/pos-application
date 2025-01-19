@@ -1,5 +1,5 @@
 import { Badge, Input, Popconfirm } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   SearchOutlined,
   HomeOutlined,
@@ -13,6 +13,8 @@ import { useSelector } from "react-redux";
 
 const Header = ({ setSearchProducts }) => {
   const cartItems = useSelector((state) => state.cart.cartItems);
+
+  const { pathname } = useLocation();
 
   const handleExit = () => {
     localStorage.removeItem("storedUser");
@@ -36,26 +38,51 @@ const Header = ({ setSearchProducts }) => {
           />
         </div>
         <div className="menu-links flex justify-between items-center gap-7 md:static fixed z-50 bottom-0 left-0 md:w-auto w-full bg-white md:bg-transparent md:border-t-0 border-t md:px-0 px-4 py-1">
-          <Link to={"/"} className="header-link">
+          <Link
+            to={"/"}
+            className={`header-link ${
+              pathname === "/" && "active-header-link"
+            }`}
+          >
             <HomeOutlined className="header-link-icon" />
             <span className="header-link-span ">Ana Sayfa</span>
           </Link>
           <Badge count={cartItems?.length} className="md:flex hidden">
-            <Link to={"/cart"} className="header-link">
+            <Link
+              to={"/cart"}
+              className={`header-link ${
+                pathname === "/cart" && "active-header-link"
+              }`}
+            >
               <ShoppingCartOutlined className="header-link-icon" />
               <span className="header-link-span ">Sepet</span>
             </Link>
           </Badge>
 
-          <Link to={"/bills"} className="header-link">
+          <Link
+            to={"/bills"}
+            className={`header-link ${
+              pathname === "/bills" && "active-header-link"
+            }`}
+          >
             <CopyOutlined className="header-link-icon" />
             <span className="header-link-span ">Faturalar</span>
           </Link>
-          <Link to={"/customers"} className="header-link">
+          <Link
+            to={"/customers"}
+            className={`header-link ${
+              pathname === "/customers" && "active-header-link"
+            }`}
+          >
             <UserOutlined className="header-link-icon" />
             <span className="header-link-span ">Müşteriler</span>
           </Link>
-          <Link to={"/statistics"} className="header-link">
+          <Link
+            to={"/statistics"}
+            className={`header-link ${
+              pathname === "/statistics" && "active-header-link"
+            }`}
+          >
             <BarChartOutlined className="header-link-icon" />
             <span className="header-link-span ">İstatistikler</span>
           </Link>

@@ -34,6 +34,10 @@ body {
   @apply flex flex-col items-center hover:text-[#40a9ff] transition-all;
 }
 
+.active-header-link {
+  @apply text-blue-700;
+}
+
 .header-link-icon {
   @apply text-xl md:text-2xl;
 }
