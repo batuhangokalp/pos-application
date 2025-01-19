@@ -1,5 +1,5 @@
 import { Badge, Input, Popconfirm } from "antd";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   SearchOutlined,
   HomeOutlined,
@@ -15,6 +15,7 @@ const Header = ({ setSearchProducts }) => {
   const cartItems = useSelector((state) => state.cart.cartItems);
 
   const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   const handleExit = () => {
     localStorage.removeItem("storedUser");
@@ -28,7 +29,12 @@ const Header = ({ setSearchProducts }) => {
             <h2 className="text-2xl font-bold md:text-4xl">LOGO</h2>
           </Link>
         </div>
-        <div className="header-search flex-1 flex justify-center">
+        <div
+          className="header-search flex-1 flex justify-center"
+          onClick={() => {
+            pathname !== "/" && navigate("/");
+          }}
+        >
           <Input
             size="large"
             placeholder="Ürün Ara.."
