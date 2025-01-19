@@ -1,4 +1,4 @@
-import { Button, Table } from "antd";
+import { Button, Spin, Table } from "antd";
 import Header from "../components/Header/Header";
 import { useEffect, useState } from "react";
 import PrintBill from "../components/Bills/PrintBill";
@@ -82,21 +82,33 @@ const BillPage = () => {
   return (
     <>
       <Header />
-      <div className="px-6 overflow-y-auto max-h-[calc(100vh_-_300px)] border-b">
-        <h1 className="text-4xl font-bold text-center mb-4">Faturalar</h1>
-        <Table
-          rowKey={(record) => record._id}
-          dataSource={billsData}
-          columns={columns}
-          bordered
-          pagination={false}
-          scroll={{
-            x: 1000,
-            y: 300,
-          }}
+      {billsData.length > 0 ? (
+        <div className="px-6 overflow-y-auto max-h-[calc(100vh_-_300px)] border-b">
+          <h1 className="text-4xl font-bold text-center mb-4">Faturalar</h1>
+          <Table
+            rowKey={(record) => record._id}
+            dataSource={billsData}
+            columns={columns}
+            bordered
+            pagination={false}
+            scroll={{
+              x: 1000,
+              y: 300,
+            }}
+          />
+        </div>
+      ) : (
+        <Spin
+          size="large"
+          className="absolute top-1/2 h-screen w-screen flex justify-center"
         />
-      </div>
-      <PrintBill isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} customerBill={customerBill}/>
+      )}
+
+      <PrintBill
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        customerBill={customerBill}
+      />
     </>
   );
 };

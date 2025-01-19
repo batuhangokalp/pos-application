@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Table } from "antd";
+import { Spin, Table } from "antd";
 import Header from "../components/Header/Header";
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -23,7 +23,8 @@ const CustomerPage = () => {
 
   const uniqueBillsData = billsData.filter(
     (value, index, self) =>
-      self.findIndex((bill) => bill.customerName === value.customerName) === index
+      self.findIndex((bill) => bill.customerName === value.customerName) ===
+      index
   );
 
   const formatDate = (dateString) => {
@@ -53,20 +54,27 @@ const CustomerPage = () => {
   return (
     <>
       <Header />
-      <div className="px-6 overflow-y-auto max-h-[calc(100vh_-_100px)] border-b">
-        <h1 className="text-4xl font-bold text-center mb-4">Müşteriler</h1>
-        <Table
-          rowKey={(record) => record._id}
-          dataSource={uniqueBillsData}
-          columns={columns}
-          bordered
-          pagination={false}
-          scroll={{
-            x: 1200,
-            y: 300,
-          }}
+      {billsData.length > 0 ? (
+        <div className="px-6 overflow-y-auto max-h-[calc(100vh_-_100px)] border-b">
+          <h1 className="text-4xl font-bold text-center mb-4">Müşteriler</h1>
+          <Table
+            rowKey={(record) => record._id}
+            dataSource={uniqueBillsData}
+            columns={columns}
+            bordered
+            pagination={false}
+            scroll={{
+              x: 1200,
+              y: 300,
+            }}
+          />
+        </div>
+      ) : (
+        <Spin
+          size="large"
+          className="absolute top-1/2 h-screen w-screen flex justify-center"
         />
-      </div>
+      )}
     </>
   );
 };
