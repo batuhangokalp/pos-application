@@ -19,7 +19,7 @@ const Header = ({ setSearchProducts }) => {
 
   const handleExit = () => {
     localStorage.removeItem("storedUser");
-    navigate("/login");
+    navigate("/");
     window.location.reload();
   };
   return (
