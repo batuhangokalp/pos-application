@@ -89,7 +89,7 @@ const Categories = ({
               key={category._id}
               className={`category-button ${
                 category.title === categoryName ? "selected" : ""
-              }`}
+              } group relative`}
               onClick={() => setCategoryName(category.title)}
             >
               <span>{category.title}</span>
@@ -114,6 +114,7 @@ const Categories = ({
               </div>
             </li>
           ))}
+
         <li className="category-button" onClick={handleAddCategory}>
           <PlusOutlined />
         </li>
