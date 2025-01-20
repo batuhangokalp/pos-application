@@ -19,7 +19,7 @@ const Header = ({ setSearchProducts }) => {
 
   const handleExit = () => {
     localStorage.removeItem("storedUser");
-    window.location.href = "/login";
+    navigate("/login");
   };
   return (
     <div className="border-b mb-6">

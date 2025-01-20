@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "antd";
+import { Link } from "react-router-dom";
 import { clearCart } from "../../redux/cartSlice";
 import { ClearOutlined } from "@ant-design/icons";
 import CalculateQuantity from "../Products/CalculateQuantity";
@@ -73,9 +74,13 @@ const CartTotals = () => {
             size="large"
             className="w-full"
             disabled={cartItems.length < 1}
-            onClick={() => (window.location.href = "/cart")}
           >
-            Sepete Git
+            <Link
+              to="/cart"
+              style={{ display: "block", width: "100%", height: "100%" }}
+            >
+              Sepete Git
+            </Link>
           </Button>
           <Button
             type="primary"
