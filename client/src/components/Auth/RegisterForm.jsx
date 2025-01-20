@@ -1,13 +1,16 @@
-import { Button, Form, Input, message } from "antd";
+import { Button, Form, Input, message, Spin } from "antd";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 const RegisterForm = () => {
   const [form] = Form.useForm();
+  const [loading, setLoading] = useState(false);
 
   const onFinish = async (values) => {
+    setLoading(true);
     try {
       const response = await axios.post(`${API_URL}/api/auth/register`, {
         username: values.username,
@@ -23,87 +26,93 @@ const RegisterForm = () => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
+
   return (
     <div className="xl:px-20 px-10 w-full flex flex-col h-full justify-center relative">
       <h1 className="text-center text-5xl font-bold mb-2">LOGO</h1>
-      <Form
-        form={form}
-        onFinish={onFinish}
-        autoComplete="off"
-        layout="vertical"
-      >
-        <Form.Item
-          label="Kullanıcı Adı"
-          name={"username"}
-          rules={[
-            {
-              required: true,
-              message: "Kullanıcı Adı Alanı Boş Bırakılamaz",
-            },
-          ]}
+      <Spin spinning={loading} size="large" className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 z-10">
+        <Form
+          form={form}
+          onFinish={onFinish}
+          autoComplete="off"
+          layout="vertical"
         >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          label="E-mail"
-          name={"email"}
-          rules={[
-            {
-              required: true,
-              message: "E-mail Alanı Boş Bırakılamaz",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          label="Şifre"
-          name={"password"}
-          rules={[
-            {
-              required: true,
-              message: "Şifre Alanı Boş Bırakılamaz",
-            },
-          ]}
-        >
-          <Input.Password />
-        </Form.Item>
-        <Form.Item
-          label="Şifre Tekrar"
-          name={"passwordAgain"}
-          dependencies={["password"]}
-          rules={[
-            {
-              required: true,
-              message: "Şifre Tekrar Alanı Boş Bırakılamaz",
-            },
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                if (!value || getFieldValue("password") === value) {
-                  return Promise.resolve();
-                }
-                return Promise.reject(
-                  new Error("Şifreler aynı olmak zorunda")
-                );
+          <Form.Item
+            label="Kullanıcı Adı"
+            name={"username"}
+            rules={[
+              {
+                required: true,
+                message: "Kullanıcı Adı Alanı Boş Bırakılamaz",
               },
-            }),
-          ]}
-        >
-          <Input.Password />
-        </Form.Item>
-        <Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-            className="w-full"
-            size="large"
+            ]}
           >
-            Kaydol
-          </Button>
-        </Form.Item>
-      </Form>
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label="E-mail"
+            name={"email"}
+            rules={[
+              {
+                required: true,
+                message: "E-mail Alanı Boş Bırakılamaz",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label="Şifre"
+            name={"password"}
+            rules={[
+              {
+                required: true,
+                message: "Şifre Alanı Boş Bırakılamaz",
+              },
+            ]}
+          >
+            <Input.Password />
+          </Form.Item>
+          <Form.Item
+            label="Şifre Tekrar"
+            name={"passwordAgain"}
+            dependencies={["password"]}
+            rules={[
+              {
+                required: true,
+                message: "Şifre Tekrar Alanı Boş Bırakılamaz",
+              },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value || getFieldValue("password") === value) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(
+                    new Error("Şifreler aynı olmak zorunda")
+                  );
+                },
+              }),
+            ]}
+          >
+            <Input.Password />
+          </Form.Item>
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="w-full"
+              size="large"
+              loading={loading}
+            >
+              Kaydol
+            </Button>
+          </Form.Item>
+        </Form>
+      </Spin>
       <div className="flex justify-center absolute left-0 bottom-10 w-full">
         Bir hesabınız var mı?&nbsp;
         <Link to="/login" className="text-blue-600">
