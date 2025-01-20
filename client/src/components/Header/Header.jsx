@@ -20,6 +20,7 @@ const Header = ({ setSearchProducts }) => {
   const handleExit = () => {
     localStorage.removeItem("storedUser");
     navigate("/login");
+    window.location.reload();
   };
   return (
     <div className="border-b mb-6">
