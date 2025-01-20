@@ -1,12 +1,11 @@
 import { Button, Form, Input, message } from "antd";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 const RegisterForm = () => {
   const [form] = Form.useForm();
-  const navigate = useNavigate();
 
   const onFinish = async (values) => {
     try {
@@ -20,7 +19,7 @@ const RegisterForm = () => {
         message.success("Kayıt başarıyla oluşturuldu");
         form.resetFields();
         localStorage.setItem("storedUser", JSON.stringify(user));
-        navigate("/login");
+        window.location = "/";
       }
     } catch (error) {
       console.log(error);
@@ -85,7 +84,9 @@ const RegisterForm = () => {
                 if (!value || getFieldValue("password") === value) {
                   return Promise.resolve();
                 }
-                return Promise.reject(new Error("Şifreler aynı olmak zorunda"));
+                return Promise.reject(
+                  new Error("Şifreler aynı olmak zorunda")
+                );
               },
             }),
           ]}
