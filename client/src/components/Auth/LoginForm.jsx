@@ -1,11 +1,12 @@
 import { Button, Checkbox, Form, Input, message } from "antd";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 const LoginForm = () => {
   const [form] = Form.useForm();
+  const navigate = useNavigate();
 
   const onFinish = async (values) => {
     try {
@@ -18,7 +19,7 @@ const LoginForm = () => {
         message.success("Giriş başarılı");
         form.resetFields();
         localStorage.setItem("storedUser", JSON.stringify(user));
-        window.location = "/";
+        navigate("/login");
       }
     } catch (error) {
       console.log(error);
