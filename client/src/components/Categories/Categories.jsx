@@ -31,7 +31,7 @@ const Categories = ({
         }
       } else if (type === "edit") {
         const response = await axios.put(
-          `${API_URL}categories/${currentCategory._id}`,
+          `${API_URL}/api/categories/${currentCategory._id}`,
           { title: values.categoryName }
         );
         if (response.status === 200) {
@@ -52,7 +52,7 @@ const Categories = ({
 
   const handleDeleteCategory = async (categoryId) => {
     try {
-      await axios.delete(`${API_URL}categories/${categoryId}`);
+      await axios.delete(`${API_URL}/api/categories/${categoryId}`);
 
       setCategoriesData((prevCategories) =>
         prevCategories.filter((category) => category._id !== categoryId)
