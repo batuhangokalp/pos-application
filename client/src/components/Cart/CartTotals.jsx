@@ -75,12 +75,7 @@ const CartTotals = () => {
             className="w-full"
             disabled={cartItems.length < 1}
           >
-            <Link
-              to="/cart"
-              style={{ display: "block", width: "100%", height: "100%" }}
-            >
-              Sepete Git
-            </Link>
+            <Link to="/cart">Sepete Git</Link>
           </Button>
           <Button
             type="primary"
