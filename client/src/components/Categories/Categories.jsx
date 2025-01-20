@@ -52,11 +52,17 @@ const Categories = ({
 
   const handleDeleteCategory = async (categoryId) => {
     try {
-      await axios.delete(`${API_URL}/api/categories/${categoryId}`);
-
-      setCategoriesData((prevCategories) =>
-        prevCategories.filter((category) => category._id !== categoryId)
+      const response = await axios.delete(
+        `${API_URL}/api/categories/${categoryId}`
       );
+
+      if (response.status === 200) {
+        message.success("Kategori başarıyla silindi");
+        setCategoriesData((prevCategories) =>
+          prevCategories.filter((category) => category._id !== categoryId)
+        );
+      }
+      setCategoryName("Tümü");
     } catch (error) {
       console.error("Silme işlemi sırasında hata oluştu:", error);
     }

@@ -82,10 +82,15 @@ const Products = ({
 
   const handleDeleteProduct = async (productId) => {
     try {
-      await axios.delete(`${API_URL}/api/products/${productId}`);
-      setProductsData((prevProducts) =>
-        prevProducts.filter((product) => product._id !== productId)
+      const response = await axios.delete(
+        `${API_URL}/api/products/${productId}`
       );
+      if (response.status === 200) {
+        message.success("Ürün başarıyla silindi");
+        setProductsData((prevProducts) =>
+          prevProducts.filter((product) => product._id !== productId)
+        );
+      }
     } catch (error) {
       console.error("Silme işlemi sırasında hata oluştu:", error);
     }
