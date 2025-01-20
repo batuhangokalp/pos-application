@@ -8,63 +8,31 @@ import Register from "./pages/Auth/Register";
 import Login from "./pages/Auth/Login";
 
 function App() {
+  const storedAuth = JSON.parse(localStorage.getItem("storedUser"));
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <RouteControl>
-              <HomePage />
-            </RouteControl>
-          }
-        />
-        <Route
-          path="/cart"
-          element={
-            <RouteControl>
-              <CartPage />
-            </RouteControl>
-          }
-        />
-        <Route
-          path="/bills"
-          element={
-            <RouteControl>
-              <BillPage />
-            </RouteControl>
-          }
-        />
-        <Route
-          path="/customers"
-          element={
-            <RouteControl>
-              <CustomerPage />
-            </RouteControl>
-          }
-        />
-        <Route
-          path="/statistic"
-          element={
-            <RouteControl>
-              <StatisticsPage />
-            </RouteControl>
-          }
-        />
-
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
+        {!storedAuth && (
+          <>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="*" element={<Navigate to="/login" />} />
+          </>
+        )}
+        {storedAuth && (
+          <>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/bills" element={<BillPage />} />
+            <Route path="/customers" element={<CustomerPage />} />
+            <Route path="/statistics" element={<StatisticsPage />} />
+            <Route path="*" element={<Navigate to="/" />} />
+          </>
+        )}
       </Routes>
     </BrowserRouter>
   );
 }
 
 export default App;
-
-export const RouteControl = ({ children }) => {
-  if (localStorage.getItem("storedUser")) {
-    return children;
-  } else {
-    return <Navigate to="/login" />;
-  }
-};
