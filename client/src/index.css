@@ -4,8 +4,11 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
 
-body {
+body,
+html {
   margin: 0;
+  padding: 0;
+  max-width: 100%;
   font-family: "Electrolize", serif;
   overflow: hidden;
 }
@@ -21,7 +24,6 @@ body {
 .category-button.selected {
   @apply bg-blue-700;
 }
-
 
 .delete-button {
   @apply text-white p-1 rounded bg-red-400 hover:bg-red-600;
