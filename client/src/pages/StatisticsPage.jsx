@@ -106,7 +106,7 @@ const StatisticsPage = () => {
       <Header />
 
       {productData.length > 0 && billsData.length > 0 ? (
-        <div className="px-6 md:pb-0 pb-20 overflow-y-auto overflow-x-hidden max-h-[calc(100vh_-_120px)] bg-red-400">
+        <div className="px-6 md:pb-0 pb-20 overflow-y-auto overflow-x-hidden max-h-[calc(100vh_-_100px)]">
           <h1 className="text-4xl font-bold text-center mb-4">İstatistikler</h1>
           <div>
             <h2 className="text-lg">
@@ -139,7 +139,7 @@ const StatisticsPage = () => {
             />
           </div>
           <div className="flex justify-between gap-10 lg:flex-row flex-col items-center">
-            <div className="lg:w-1/2 lg:h-full h-72">
+            <div className="relative lg:w-1/2 lg:h-full h-72 flex items-center justify-center">
               <Area {...config} />
             </div>
             <div className="relative lg:w-1/2 lg:h-full h-72 flex items-center justify-center">

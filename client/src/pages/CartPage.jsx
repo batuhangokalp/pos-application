@@ -75,7 +75,7 @@ const CartPage = () => {
           }}
         />
       </div>
-      <div className="cart-total flex justify-end mt-4 fixed bottom-10 bg-red-700 right-0">
+      <div className="cart-total flex justify-end mt-4 fixed bottom-10 right-0">
         <Card className="w-72">
           <div className="flex justify-between">
             <span>Ara Toplam</span>
