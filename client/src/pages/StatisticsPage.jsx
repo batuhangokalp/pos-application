@@ -106,7 +106,7 @@ const StatisticsPage = () => {
       <Header />
 
       {productData.length > 0 && billsData.length > 0 ? (
-        <div className="px-6 md:pb-0 pb-20 overflow-y-auto max-h-[calc(100vh_-_120px)]">
+        <div className="px-6 md:pb-0 pb-20 overflow-y-auto overflow-x-hidden max-h-[calc(100vh_-_120px)] bg-red-400">
           <h1 className="text-4xl font-bold text-center mb-4">İstatistikler</h1>
           <div>
             <h2 className="text-lg">
