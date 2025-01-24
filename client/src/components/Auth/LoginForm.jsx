@@ -34,7 +34,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="xl:px-20 px-10 w-full flex flex-col h-full justify-center relative">
+    <div className="xl:px-20 px-10 w-full flex flex-col h-full justify-center">
       <h1 className="text-center text-5xl font-bold mb-2">LOGO</h1>
       <Spin spinning={loading} size="large" className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 z-10">
         <Form
