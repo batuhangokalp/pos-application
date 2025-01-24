@@ -10,7 +10,7 @@ html {
   padding: 0;
   max-width: 100%;
   font-family: "Electrolize", serif;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .category-button {
