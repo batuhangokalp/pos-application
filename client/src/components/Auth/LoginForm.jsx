@@ -46,11 +46,11 @@ const LoginForm = () => {
           onFinish={onFinish}
           autoComplete="off"
           layout="vertical"
+          className="w-full max-w-md mx-auto"
         >
           <Form.Item
             label="E-mail"
             name={"email"}
-            className="w-full"
             rules={[
               {
                 required: true,
@@ -58,12 +58,11 @@ const LoginForm = () => {
               },
             ]}
           >
-            <Input className="w-full" />
+            <Input />
           </Form.Item>
           <Form.Item
             label="Şifre"
             name={"password"}
-            className="w-full"
             rules={[
               {
                 required: true,
@@ -71,7 +70,7 @@ const LoginForm = () => {
               },
             ]}
           >
-            <Input.Password className="w-full" />
+            <Input.Password />
           </Form.Item>
           <Form.Item name={"remember"} valuePropName="checked">
             <div className="flex justify-between items-center">
