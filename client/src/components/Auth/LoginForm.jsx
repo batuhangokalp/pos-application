@@ -7,7 +7,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 const LoginForm = () => {
   const [form] = Form.useForm();
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
 
   const onFinish = async (values) => {
     setLoading(true);
@@ -34,9 +34,13 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="xl:px-20 px-10 w-full flex flex-col h-full justify-center">
+    <div className="xl:px-20 px-10 w-full flex flex-col h-full justify-center relative">
       <h1 className="text-center text-5xl font-bold mb-2">LOGO</h1>
-      <Spin spinning={loading} size="large" className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 z-10">
+      <Spin
+        spinning={loading}
+        size="large"
+        className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 z-10"
+      >
         <Form
           form={form}
           onFinish={onFinish}
