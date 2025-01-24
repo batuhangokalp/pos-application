@@ -3,7 +3,7 @@ import LoginForm from "../../components/Auth/LoginForm";
 
 const Login = () => {
   return (
-    <div className="h-screen">
+    <div className="h-screen w-full">
       <div className="flex justify-between h-full">
         <LoginForm />
         <CommonCarousel />
