@@ -54,7 +54,8 @@ html {
 }
 
 @media (max-width: 768px) {
-  body {
-    overflow: scroll;
+  body,
+  html {
+    overflow: auto;
   }
 }
