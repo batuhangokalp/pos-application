@@ -1,16 +1,19 @@
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../redux/cartSlice";
+import { addToCartAsync } from "../../redux/cartSlice";
 
 const ProductItem = ({ product }) => {
+  const storedAuth = JSON.parse(localStorage.getItem("storedUser"));
+
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
     const body = {
       ...product,
       quantity: 1,
+      userId: storedAuth._id,
     };
 
-    dispatch(addToCart(body));
+    dispatch(addToCartAsync(body));
   };
 
   return (

@@ -1,17 +1,28 @@
 import { Button } from "antd";
 import { MinusCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
-import { addToCart, removeFromCart } from "../../redux/cartSlice";
+import { addToCartAsync, decreaseFromCartAsync } from "../../redux/cartSlice";
 
-const CalculateQuantity = ({ record }) => {
+const CalculateQuantity = ({ record, userId }) => {
   const dispatch = useDispatch();
+  const storedAuth = JSON.parse(localStorage.getItem("storedUser"));
 
-  const handleAddToCart = (cartItem) => {
-    dispatch(addToCart(cartItem));
+  const handleAddToCart = () => {
+    const body = {
+      ...record?.productId,
+      quantity: 1,
+      userId: storedAuth._id,
+    };
+    dispatch(addToCartAsync(body));
   };
 
   const handleRemoveFromCart = (cartItem) => {
-    dispatch(removeFromCart(cartItem));
+    const body = {
+      userId,
+      quantity: cartItem.quantity,
+      productId: cartItem.productId._id,
+    };
+    dispatch(decreaseFromCartAsync(body));
   };
 
   return (

@@ -1,15 +1,14 @@
 import { Button, Card, Form, Input, message, Modal, Select } from "antd";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { clearCart } from "../../redux/cartSlice";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-const CreateBill = ({ isModalOpen, setIsModalOpen, getTotalPrice, KDV }) => {
+const CreateBill = ({ isModalOpen, setIsModalOpen, getTotalPrice, KDV, cartItems }) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
 
-  const cartItems = useSelector((state) => state.cart.cartItems);
 
   const onFinish = async (values) => {
     try {

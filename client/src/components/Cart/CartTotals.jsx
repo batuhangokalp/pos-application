@@ -1,20 +1,33 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "antd";
 import { Link } from "react-router-dom";
-import { clearCart } from "../../redux/cartSlice";
+import {
+  clearCartAsync,
+  fetchCart,
+} from "../../redux/cartSlice";
 import { ClearOutlined } from "@ant-design/icons";
 import CalculateQuantity from "../Products/CalculateQuantity";
 
 const CartTotals = () => {
-  const cartItems = useSelector((state) => state.cart.cartItems);
   const dispatch = useDispatch();
-  const handleClearCart = () => {
-    dispatch(clearCart());
-  };
 
+  const storedAuth = JSON.parse(localStorage.getItem("storedUser"));
+  const userId = storedAuth._id;
+  const cartItems = useSelector((state) => state.cart.items);
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(fetchCart(userId));
+    }
+  }, [dispatch, userId]);
+
+  const handleClearCart = () => {
+    dispatch(clearCartAsync(userId));
+  };
   const getTotalPrice = () => {
     return cartItems?.reduce((total, item) => {
-      return total + item.price * item.quantity;
+      return total + item?.productId?.price * item.quantity;
     }, 0);
   };
 
@@ -31,18 +44,21 @@ const CartTotals = () => {
             <li className="cart-item flex justify-between" key={cartItem._id}>
               <div className="flex items-center">
                 <img
-                  src={cartItem?.img}
-                  alt={cartItem?.title}
+                  src={cartItem?.productId?.img}
+                  alt={cartItem?.productId?.title}
                   className="w-16 h-16 object-cover"
                 />
                 <div className="flex flex-col ml-2">
-                  <b>{cartItem?.title}</b>
+                  <b>{cartItem?.productId?.title}</b>
                   <span>
-                    {(cartItem?.price * cartItem?.quantity).toFixed(2)} ₺
+                    {(cartItem?.productId?.price * cartItem?.quantity).toFixed(
+                      2
+                    )}{" "}
+                    ₺
                   </span>
                 </div>
               </div>
-              <CalculateQuantity record={cartItem} />
+              <CalculateQuantity record={cartItem} userId={userId} />
             </li>
           ))
         ) : (
@@ -73,7 +89,7 @@ const CartTotals = () => {
             type="primary"
             size="large"
             className="w-full"
-            disabled={cartItems.length < 1}
+            disabled={cartItems?.length < 1}
           >
             <Link to="/cart">Sepete Git</Link>
           </Button>
@@ -83,7 +99,7 @@ const CartTotals = () => {
             className="w-full mt-2"
             danger
             icon={<ClearOutlined />}
-            disabled={cartItems.length < 1}
+            disabled={cartItems?.length < 1}
             onClick={handleClearCart}
           >
             Temizle

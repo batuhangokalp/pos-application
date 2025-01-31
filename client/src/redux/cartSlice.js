@@ -1,45 +1,104 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
-const initialState = {
-  cartItems: localStorage.getItem("cartItems")
-    ? JSON.parse(localStorage.getItem("cartItems"))
-    : [],
-};
+const API_URL = process.env.REACT_APP_API_URL;
 
+export const fetchCart = createAsyncThunk("cart/fetchCart", async (userId) => {
+  const response = await axios.get(`${API_URL}/api/cart/${userId}`);
+  return response.data.items;
+});
+
+export const addToCartAsync = createAsyncThunk(
+  "cart/addToCartByProduct",
+  async (body) => {
+    try {
+      const res = await axios.post(`${API_URL}/api/cart/add`, body);
+      return res.data.items;
+    } catch (error) {
+      console.error("Error during axios.post:", error);
+      throw error;
+    }
+  }
+);
+
+export const decreaseFromCartAsync = createAsyncThunk(
+  "cart/decreaseFromCartByProduct",
+  async (body) => {
+    try {
+      const res = await axios.post(`${API_URL}/api/cart/decrease`, body);
+      return res.data.items;
+    } catch (error) {
+      console.error("Error during axios.post:", error);
+      throw error;
+    }
+  }
+);
+
+export const clearCartAsync = createAsyncThunk(
+  "cart/clearCart",
+  async (userId) => {
+    try {
+      await axios.delete(`${API_URL}/api/cart/delete/${userId}`);
+      return [];
+    } catch (error) {
+      console.error("Error during axios.post:", error);
+      throw error;
+    }
+  }
+);
 export const cartSlice = createSlice({
   name: "cart",
-  initialState,
-  reducers: {
-    addToCart: (state, action) => {
-      const existingItem = state.cartItems.find(
-        (item) => item._id === action.payload._id
-      );
-
-      if (existingItem) {
-        existingItem.quantity += 1;
-      } else {
-        state.cartItems.push({ ...action.payload, quantity: 1 });
-      }
-      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
-    },
-    removeFromCart: (state, action) => {
-      const itemIndex = state.cartItems.findIndex(
-        (item) => item._id === action.payload._id
-      );
-
-      if (itemIndex !== -1) {
-        if (state.cartItems[itemIndex].quantity > 1) {
-          state.cartItems[itemIndex].quantity -= 1;
-        } else {
-          state.cartItems.splice(itemIndex, 1);
-        }
-      }
-      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
-    },
-    clearCart: (state) => {
-      state.cartItems = [];
-      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
-    },
+  initialState: {
+    items: [],
+    status: "idle",
+    error: null,
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchCart.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchCart.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.items = action.payload;
+      })
+      .addCase(fetchCart.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
+      .addCase(addToCartAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(addToCartAsync.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.items = action.payload;
+      })
+      .addCase(addToCartAsync.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      })
+      .addCase(decreaseFromCartAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(decreaseFromCartAsync.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.items = action.payload;
+      })
+      .addCase(decreaseFromCartAsync.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
+      .addCase(clearCartAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(clearCartAsync.fulfilled, (state) => {
+        state.status = "succeeded";
+        state.items = [];
+      })
+      .addCase(clearCartAsync.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      });
   },
 });
 

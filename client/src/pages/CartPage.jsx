@@ -1,61 +1,86 @@
 import { Button, Card, Table } from "antd";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Header from "../components/Header/Header";
 import CreateBill from "../components/Cart/CreateBill";
 import CalculateQuantity from "../components/Products/CalculateQuantity";
 import { useTableSearch } from "../utils/tableFilters";
+import { fetchCart } from "../redux/cartSlice";
 
 const CartPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const dispatch = useDispatch();
   const { getColumnSearchProps } = useTableSearch();
 
-  const cartItems = useSelector((state) => state.cart.cartItems);
+  const storedAuth = JSON.parse(localStorage.getItem("storedUser") || "{}");
+  const userId = storedAuth?._id;
 
+  const cartItems = useSelector((state) => state.cart.items);
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(fetchCart(userId));
+    }
+  }, [userId, dispatch]);
   const columns = [
     {
       title: "Ürün Görseli",
-      dataIndex: "img",
       key: "img",
       width: "125px",
-      render: (img) => (
-        <img src={img} alt="img" className="w-full h-16 object-cover" />
-      ),
+      render: (text, record) =>
+        record?.productId?.img ? (
+          <img
+            src={record.productId.img}
+            alt="img"
+            className="w-full h-16 object-cover"
+          />
+        ) : (
+          "Görsel Yok"
+        ),
     },
     {
       title: "Ürün Adı",
-      dataIndex: "title",
       key: "title",
       ...getColumnSearchProps("title"),
+      render: (text, record) => record?.productId?.title || "Bilinmiyor",
     },
     {
       title: "Ürün Fiyatı",
-      dataIndex: "price",
       key: "price",
-      render: (price) => `${price.toFixed(2)} ₺`,
-      sorter: (a, b) => a.price - b.price,
+      render: (text, record) =>
+        record?.productId?.price
+          ? `${record.productId.price.toFixed(2)} ₺`
+          : "Bilinmiyor",
+      sorter: (a, b) => (a.productId?.price || 0) - (b.productId?.price || 0),
     },
     {
       title: "Toplam Fiyat (+%8 KDV)",
-      dataIndex: "price",
-      key: "price",
-      render: (text, record) =>
-        `${(record.price * record.quantity * 1.08).toFixed(2)} ₺`,
-      sorter: (a, b) => a.price - b.price,
+      key: "totalPrice",
+      render: (text, record) => {
+        const price = record?.productId?.price || 0;
+        const quantity = record?.quantity || 0;
+        return `${(price * quantity * 1.08).toFixed(2)} ₺`;
+      },
+      sorter: (a, b) =>
+        (a.productId?.price || 0) * (a.quantity || 0) -
+        (b.productId?.price || 0) * (b.quantity || 0),
     },
     {
       title: "Ürün Miktarı",
       dataIndex: "quantity",
       key: "quantity",
-      render: (text, record) => <CalculateQuantity record={record} />,
+      render: (text, record) => (
+        <CalculateQuantity record={record} userId={userId} />
+      ),
     },
   ];
 
   const getTotalPrice = () => {
-    return cartItems?.reduce((total, item) => {
-      return total + item.price * item.quantity;
-    }, 0);
+    return cartItems.reduce(
+      (total, item) =>
+        total + (item.productId?.price || 0) * (item.quantity || 0),
+      0
+    );
   };
 
   const KDV = (getTotalPrice() * 8) / 100;
@@ -105,6 +130,7 @@ const CartPage = () => {
         setIsModalOpen={setIsModalOpen}
         getTotalPrice={getTotalPrice}
         KDV={KDV}
+        cartItems={cartItems}
       />
     </>
   );
