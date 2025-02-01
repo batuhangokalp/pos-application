@@ -34,7 +34,7 @@ const CreateBill = ({
         dispatch(clearCartAsync(userId));
       }
     } catch (error) {
-      console.log(error);
+      message.error(error.response.data.message);
     }
   };
   return (
