@@ -43,6 +43,19 @@ const ProductForm = ({ onFinish, form, categoriesData, type }) => {
       </Form.Item>
 
       <Form.Item
+        label="Ürün Stoğu"
+        name="stock"
+        rules={[
+          {
+            required: true,
+            message: "Ürün stok alanı boş bırakılamaz",
+          },
+        ]}
+      >
+        <InputNumber className="w-full" />
+      </Form.Item>
+
+      <Form.Item
         label="Ürün Kategorisi"
         name="category"
         rules={[

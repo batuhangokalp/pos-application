@@ -3,7 +3,7 @@ import axios from "axios";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-export const fetchCart = createAsyncThunk("cart/fetchCart", async (userId) => {
+export const fetchCartAsync = createAsyncThunk("cart/fetchCart", async (userId) => {
   const response = await axios.get(`${API_URL}/api/cart/${userId}`);
   return response.data.items;
 });
@@ -55,14 +55,14 @@ export const cartSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchCart.pending, (state) => {
+      .addCase(fetchCartAsync.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(fetchCart.fulfilled, (state, action) => {
+      .addCase(fetchCartAsync.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.items = action.payload;
       })
-      .addCase(fetchCart.rejected, (state, action) => {
+      .addCase(fetchCartAsync.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       })
@@ -101,7 +101,5 @@ export const cartSlice = createSlice({
       });
   },
 });
-
-export const { addToCart, removeFromCart, clearCart } = cartSlice.actions;
 
 export default cartSlice.reducer;

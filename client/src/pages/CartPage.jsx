@@ -5,7 +5,7 @@ import Header from "../components/Header/Header";
 import CreateBill from "../components/Cart/CreateBill";
 import CalculateQuantity from "../components/Products/CalculateQuantity";
 import { useTableSearch } from "../utils/tableFilters";
-import { fetchCart } from "../redux/cartSlice";
+import { fetchCartAsync } from "../redux/cartSlice";
 
 const CartPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,10 +16,9 @@ const CartPage = () => {
   const userId = storedAuth?._id;
 
   const cartItems = useSelector((state) => state.cart.items);
-
   useEffect(() => {
     if (userId) {
-      dispatch(fetchCart(userId));
+      dispatch(fetchCartAsync(userId));
     }
   }, [userId, dispatch]);
   const columns = [
@@ -43,6 +42,12 @@ const CartPage = () => {
       key: "title",
       ...getColumnSearchProps("title"),
       render: (text, record) => record?.productId?.title || "Bilinmiyor",
+    },
+    {
+      title: "Ürün Stoğu",
+      key: "stock",
+      ...getColumnSearchProps("stock"),
+      render: (text, record) => record?.productId?.stock ?? "Bilinmiyor",
     },
     {
       title: "Ürün Fiyatı",
@@ -131,6 +136,7 @@ const CartPage = () => {
         getTotalPrice={getTotalPrice}
         KDV={KDV}
         cartItems={cartItems}
+        userId={userId}
       />
     </>
   );

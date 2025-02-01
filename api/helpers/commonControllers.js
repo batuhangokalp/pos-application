@@ -1,3 +1,5 @@
+const Product = require("../models/Product.js");
+
 // #region Creating new model
 const createModel = (Model) => {
   return async (req, res) => {
@@ -5,13 +7,33 @@ const createModel = (Model) => {
       const body = req.body;
       const newModel = new Model(body);
       await newModel.save();
+
+      if (Model.modelName === "stocks") {
+        await newModel.populate("productId");
+      }
+
+      if (Model.modelName === "bills") {
+        for (const item of body.cartItems) {
+          const product = await Product.findById(item.productId);
+          if (product) {
+            if (product.stock >= item.quantity) {
+              product.stock -= item.quantity;
+              await product.save();
+            } else {
+              return res.status(400).json({ message: `Yetersiz stok: ${product.title}` });
+            }
+          }
+        }
+      }
+
       res.status(201).json(newModel);
     } catch (error) {
-      console.error(`Creating ${Model.modelName} error:`, error);
-      res.status(500).json({ error: "Server Error!" });
+      console.error(error);
+      res.status(500).json({ error: "Bir hata oluştu." });
     }
   };
 };
+
 //#endregion
 
 // #region Getting all models

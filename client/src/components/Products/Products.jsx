@@ -47,6 +47,7 @@ const Products = ({
           img: values.img,
           price: values.price,
           category: values.category,
+          stock: values.stock,
         });
         if (response.status === 201) {
           message.success("Ürün başarıyla oluşturuldu");
@@ -62,6 +63,7 @@ const Products = ({
             img: values.img,
             price: values.price,
             category: values.category,
+            stock: values.stock,
           }
         );
         if (response.status === 200) {
@@ -104,6 +106,7 @@ const Products = ({
       img: product.img,
       price: product.price,
       category: product.category,
+      stock: product.stock,
     });
     setProductModal(true);
   };

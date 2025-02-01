@@ -1,14 +1,20 @@
 import { Button, Card, Form, Input, message, Modal, Select } from "antd";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { clearCart } from "../../redux/cartSlice";
+import { clearCartAsync } from "../../redux/cartSlice";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-const CreateBill = ({ isModalOpen, setIsModalOpen, getTotalPrice, KDV, cartItems }) => {
+const CreateBill = ({
+  isModalOpen,
+  setIsModalOpen,
+  getTotalPrice,
+  KDV,
+  cartItems,
+  userId,
+}) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
-
 
   const onFinish = async (values) => {
     try {
@@ -25,13 +31,10 @@ const CreateBill = ({ isModalOpen, setIsModalOpen, getTotalPrice, KDV, cartItems
         message.success("Sipariş başarıyla oluşturuldu");
         form.resetFields();
         setIsModalOpen(false);
-        dispatch(clearCart());
+        dispatch(clearCartAsync(userId));
       }
     } catch (error) {
       console.log(error);
-      // if (error.status === 401) {
-      //   message.error("Kullanıcı Bilgileri Yanlış");
-      // }
     }
   };
   return (

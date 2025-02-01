@@ -2,10 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "antd";
 import { Link } from "react-router-dom";
-import {
-  clearCartAsync,
-  fetchCart,
-} from "../../redux/cartSlice";
+import { clearCartAsync, fetchCartAsync } from "../../redux/cartSlice";
 import { ClearOutlined } from "@ant-design/icons";
 import CalculateQuantity from "../Products/CalculateQuantity";
 
@@ -18,7 +15,7 @@ const CartTotals = () => {
 
   useEffect(() => {
     if (userId) {
-      dispatch(fetchCart(userId));
+      dispatch(fetchCartAsync(userId));
     }
   }, [dispatch, userId]);
 
@@ -58,7 +55,12 @@ const CartTotals = () => {
                   </span>
                 </div>
               </div>
-              <CalculateQuantity record={cartItem} userId={userId} />
+              <div className="flex flex-col items-center gap-2">
+                <span className="text-red-700 text-[15px]">
+                  Stok: {cartItem?.productId?.stock}
+                </span>
+                <CalculateQuantity record={cartItem} userId={userId} />
+              </div>
             </li>
           ))
         ) : (
