@@ -13,6 +13,8 @@ const CartTotals = () => {
   const userId = storedAuth._id;
   const cartItems = useSelector((state) => state.cart.items);
 
+  console.log(cartItems)
+
   useEffect(() => {
     if (userId) {
       dispatch(fetchCartAsync(userId));
@@ -24,7 +26,7 @@ const CartTotals = () => {
   };
   const getTotalPrice = () => {
     return cartItems?.reduce((total, item) => {
-      return total + item?.productId?.price * item.quantity;
+      return total + item?.price * item.quantity;
     }, 0);
   };
 
@@ -48,7 +50,7 @@ const CartTotals = () => {
                 <div className="flex flex-col ml-2">
                   <b>{cartItem?.productId?.title}</b>
                   <span>
-                    {(cartItem?.productId?.price * cartItem?.quantity).toFixed(
+                    {(cartItem?.price * cartItem?.quantity).toFixed(
                       2
                     )}{" "}
                     ₺

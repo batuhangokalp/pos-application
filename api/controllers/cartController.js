@@ -1,5 +1,7 @@
 const express = require("express");
 const Cart = require("../models/Cart");
+const Product = require("../models/Product");
+
 const router = express.Router();
 
 // #region Get Cart
@@ -31,7 +33,7 @@ router.post("/add", async (req, res) => {
     } = req.body;
 
     let cart = await Cart.findOne({ userId });
-
+    
     if (!cart) {
       cart = new Cart({ userId, items: [] });
     }
@@ -42,10 +44,14 @@ router.post("/add", async (req, res) => {
 
     if (existingItem) {
       existingItem.quantity += quantity;
+      if (existingItem.quantity > 10) {
+        existingItem.price = price * 0.8;
+      } else {
+        existingItem.price = price;
+      }
     } else {
       cart.items.push({ productId, quantity, price, title, img, stock });
     }
-
     await cart.save();
 
     await cart.populate("items.productId");
@@ -62,7 +68,11 @@ router.post("/decrease", async (req, res) => {
     const { userId, quantity, productId } = req.body;
 
     let cart = await Cart.findOne({ userId });
+    const product = await Product.findById(productId);
 
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
     if (!cart) {
       return res.status(404).json({ message: "Cart not found" });
     }
@@ -78,6 +88,11 @@ router.post("/decrease", async (req, res) => {
         );
       } else {
         existingItem.quantity -= 1;
+        if (existingItem.quantity <= 10) {
+          existingItem.price = product.price;
+        } else {
+          existingItem.price = product.price * 0.8;
+        }
       }
 
       await cart.save();
