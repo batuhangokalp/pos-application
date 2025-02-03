@@ -89,6 +89,14 @@ const Categories = ({
         >
           <span>Tümü</span>
         </li>
+        <li
+          className={`category-button ${
+            categoryName === "Favoriler" ? "selected-fav" : ""
+          }`}
+          onClick={() => setCategoryName("Favoriler")}
+        >
+          <span>Favoriler</span>
+        </li>
         {categoriesData?.length > 0 &&
           categoriesData.map((category) => (
             <li

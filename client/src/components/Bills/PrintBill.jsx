@@ -2,6 +2,7 @@ import { Button, Modal } from "antd";
 import { useRef } from "react";
 import { useReactToPrint } from "react-to-print";
 const PrintBill = ({ isModalOpen, setIsModalOpen, customerBill }) => {
+  console.log(customerBill)
   const componentRef = useRef(null);
 
   const handlePrint = useReactToPrint({ content: () => componentRef.current });
@@ -110,14 +111,14 @@ const PrintBill = ({ isModalOpen, setIsModalOpen, customerBill }) => {
                     <tr className="border-b border-slate-200" key={item?._id}>
                       <td className="py-4 sm:table-cell hidden">
                         <img
-                          src={item.img}
+                          src={item.productId.img}
                           alt=""
                           className="w-12 h-12 object-cover"
                         />
                       </td>
                       <td className="py-4 sm:table-cell hidden">
                         <div className="flex flex-col">
-                          <span className="font-medium">{item.title}</span>
+                          <span className="font-medium">{item.productId.title}</span>
                           <span className="sm:hidden inline-block text-xs">
                             Birim Fiyatı {item.price}₺
                           </span>
@@ -125,7 +126,7 @@ const PrintBill = ({ isModalOpen, setIsModalOpen, customerBill }) => {
                       </td>
                       <td className="py-4 sm:hidden" colSpan={4}>
                         <div className="flex flex-col">
-                          <span className="font-medium">{item.title}</span>
+                          <span className="font-medium">{item.productId.title}</span>
                           <span className="sm:hidden inline-block text-xs">
                             Birim Fiyatı {item.price}₺
                           </span>

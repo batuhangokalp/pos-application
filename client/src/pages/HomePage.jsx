@@ -11,6 +11,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 const HomePage = () => {
   const [categoriesData, setCategoriesData] = useState([]);
   const [productsData, setProductsData] = useState([]);
+  const [bestSellerData, setBestSellerData] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [categoryName, setCategoryName] = useState("Tümü");
   const [searchedProducts, setSearchProducts] = useState("");
@@ -18,13 +19,15 @@ const HomePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [categoriesResponse, productsResponse] = await Promise.all([
-          axios.get(`${API_URL}/api/categories`),
-          axios.get(`${API_URL}/api/products`),
-        ]);
-
+        const [categoriesResponse, productsResponse, bestSellerResponse] =
+          await Promise.all([
+            axios.get(`${API_URL}/api/categories`),
+            axios.get(`${API_URL}/api/products`),
+            axios.get(`${API_URL}/api/products/bestSeller`),
+          ]);
         setCategoriesData(categoriesResponse.data);
         setProductsData(productsResponse.data);
+        setBestSellerData(bestSellerResponse.data);
       } catch (error) {
         console.error("Hata oluştu:", error);
       }
@@ -54,6 +57,7 @@ const HomePage = () => {
               setFilteredProducts={setFilteredProducts}
               categoryName={categoryName}
               searchedProducts={searchedProducts}
+              bestSellerData={bestSellerData}
             />
           </div>
           <div className="cart-totals min-w-[300px] border overflow-auto max-h-[calc(100vh_-_112px)]">

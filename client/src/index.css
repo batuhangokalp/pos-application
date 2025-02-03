@@ -24,6 +24,9 @@ html {
 .category-button.selected {
   @apply bg-blue-700;
 }
+.category-button.selected-fav {
+  @apply bg-gray-500;
+}
 
 .delete-button {
   @apply text-white p-1 rounded bg-red-400 hover:bg-red-600;

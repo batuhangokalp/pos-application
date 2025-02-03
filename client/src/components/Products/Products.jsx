@@ -15,6 +15,7 @@ const Products = ({
   setFilteredProducts,
   categoryName,
   searchedProducts,
+  bestSellerData,
 }) => {
   const [productModal, setProductModal] = useState(false);
   const [type, setType] = useState("add");
@@ -24,7 +25,11 @@ const Products = ({
   useEffect(() => {
     let filtered = productsData;
 
-    if (categoryName !== "Tümü") {
+    if (categoryName === "Favoriler") {
+      filtered = bestSellerData
+        .filter((item) => item.totalSold > 10)
+        .map((item) => item.product);
+    } else if (categoryName !== "Tümü") {
       filtered = filtered.filter(
         (product) => product?.category === categoryName
       );
@@ -37,7 +42,13 @@ const Products = ({
     }
 
     setFilteredProducts(filtered);
-  }, [categoryName, searchedProducts, productsData, setFilteredProducts]);
+  }, [
+    categoryName,
+    searchedProducts,
+    productsData,
+    setFilteredProducts,
+    bestSellerData,
+  ]);
 
   const onFinish = async (values) => {
     try {
@@ -144,13 +155,15 @@ const Products = ({
               <ProductItem product={product} />
             </div>
           ))}
-        <div
-          className="bg-cyan-700 px-6 py-10 text-white hover:cursor-pointer hover:bg-blue-700 transition-all text-center h-40 flex flex-col justify-between items-center"
-          onClick={handleAddProduct}
-        >
-          <span>Ürün Ekle</span>
-          <PlusOutlined />
-        </div>
+        {categoryName !== "Favoriler" && (
+          <div
+            className="bg-cyan-700 px-6 py-10 text-white hover:cursor-pointer hover:bg-blue-700 transition-all text-center h-40 flex flex-col justify-between items-center"
+            onClick={handleAddProduct}
+          >
+            <span>Ürün Ekle</span>
+            <PlusOutlined />
+          </div>
+        )}
       </div>
       <Modal
         title={type === "add" ? "Ürün Oluştur" : "Ürünü güncelle"}
