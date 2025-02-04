@@ -46,6 +46,10 @@ const LoginForm = () => {
           onFinish={onFinish}
           autoComplete="off"
           layout="vertical"
+          initialValues={{
+            email: "batu@gokalp",
+            password: "1234",
+          }}
         >
           <Form.Item
             label="E-mail"
