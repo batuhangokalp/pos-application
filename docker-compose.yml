@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./api
+    container_name: pos-backend
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      MONGO_URI: "mongodb+srv://bbatuhangokalp:uNcM-i_QVTeJsW4@cluster0.xjyiz.mongodb.net/pos-application"
+    volumes:
+      - C:\Users\batu\Desktop\pos-application\:/api/app
+    command: sh -c "sleep 5 && node server.js"
+
+  frontend:
+    build: ./client
+    container_name: pos-frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"
