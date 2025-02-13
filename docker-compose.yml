@@ -4,18 +4,18 @@ services:
   backend:
     build: ./api
     container_name: pos-backend
+    image: backend:latest
     restart: always
     ports:
       - "5000:5000"
     environment:
       MONGO_URI: "mongodb+srv://bbatuhangokalp:uNcM-i_QVTeJsW4@cluster0.xjyiz.mongodb.net/pos-application"
-    volumes:
-      - C:\Users\batu\Desktop\pos-application\:/api/app
     command: sh -c "sleep 5 && node server.js"
 
   frontend:
     build: ./client
     container_name: pos-frontend
+    image: frontend:latest
     restart: always
     depends_on:
       - backend
