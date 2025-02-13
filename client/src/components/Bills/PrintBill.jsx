@@ -2,7 +2,6 @@ import { Button, Modal } from "antd";
 import { useRef } from "react";
 import { useReactToPrint } from "react-to-print";
 const PrintBill = ({ isModalOpen, setIsModalOpen, customerBill }) => {
-  console.log(customerBill)
   const componentRef = useRef(null);
 
   const handlePrint = useReactToPrint({ content: () => componentRef.current });

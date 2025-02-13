@@ -13,8 +13,6 @@ const CartTotals = () => {
   const userId = storedAuth._id;
   const cartItems = useSelector((state) => state.cart.items);
 
-  console.log(cartItems)
-
   useEffect(() => {
     if (userId) {
       dispatch(fetchCartAsync(userId));

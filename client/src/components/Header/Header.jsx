@@ -12,7 +12,7 @@ import {
 import { useSelector } from "react-redux";
 
 const Header = ({ setSearchProducts }) => {
-  const cartItems = useSelector((state) => state.cart.cartItems);
+  const cartItems = useSelector((state) => state.cart.items);
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
