@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { Spin } from "antd";
 import Header from "../components/Header/Header";
@@ -35,6 +35,18 @@ const HomePage = () => {
 
     fetchData();
   }, []);
+
+  const memoizedSetFilteredData = useCallback((newData) => {
+    setFilteredProducts(newData);
+  }, [setFilteredProducts]);
+
+  const memoizedSetCategoriesData = useCallback((newData) => {
+    setCategoriesData(newData);
+  }, [setCategoriesData]);
+
+  const memoizedSetProductsData = useCallback((newData) => {
+    setProductsData(newData);
+  }, [setProductsData]);
   return (
     <>
       <Header setSearchProducts={setSearchProducts} />
@@ -43,7 +55,7 @@ const HomePage = () => {
           <div className="categories min-w-[150px] overflow-auto max-h-[calc(100vh_-_112px)] md:pb-10">
             <Categories
               categoriesData={categoriesData}
-              setCategoriesData={setCategoriesData}
+              setCategoriesData={memoizedSetCategoriesData}
               categoryName={categoryName}
               setCategoryName={setCategoryName}
             />
@@ -51,10 +63,10 @@ const HomePage = () => {
           <div className="products flex-[8] overflow-auto max-h-[calc(100vh_-_112px)] pb-10">
             <Products
               productsData={productsData}
-              setProductsData={setProductsData}
+              setProductsData={memoizedSetProductsData}
               categoriesData={categoriesData}
               filteredProducts={filteredProducts}
-              setFilteredProducts={setFilteredProducts}
+              setFilteredProducts={memoizedSetFilteredData}
               categoryName={categoryName}
               searchedProducts={searchedProducts}
               bestSellerData={bestSellerData}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Form, message, Modal, Popconfirm } from "antd";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
@@ -7,7 +7,7 @@ import ProductForm from "./ProductForm";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-const Products = ({
+const Products = React.memo(({
   productsData,
   setProductsData,
   categoriesData,
@@ -180,6 +180,6 @@ const Products = ({
       </Modal>
     </>
   );
-};
+});
 
 export default Products;
