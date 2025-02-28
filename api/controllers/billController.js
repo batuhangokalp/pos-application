@@ -8,10 +8,11 @@ const {
   updateModel,
   deleteModel,
 } = require("../helpers/commonControllers.js");
+const authMiddleware = require("../helpers/authMiddleware.js");
 
 router.post("/", createModel(Bill));
 
-router.get("/", getModel(Bill));
+router.get("/", authMiddleware, getModel(Bill));
 
 router.get("/:id", getModelAccordingToId(Bill));
 

@@ -21,16 +21,23 @@ const BillPage = () => {
 
   useEffect(() => {
     const fetchBills = async () => {
+      const token = localStorage.getItem("token");
+  
       try {
-        const response = await axios.get(`${API_URL}/api/bills`);
+        const response = await axios.get(`${API_URL}/api/bills`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setBillsData(response.data);
       } catch (error) {
         console.error("Hata oluştu:", error);
       }
     };
-
+  
     fetchBills();
   }, []);
+  
 
   const openPrintBill = (lineItem) => {
     setIsModalOpen(true);

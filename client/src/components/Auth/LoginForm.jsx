@@ -16,22 +16,27 @@ const LoginForm = () => {
         email: values.email,
         password: values.password,
       });
-      const user = response.data;
+  
       if (response.status === 200) {
+        const { user, token } = response.data;
         message.success("Giriş başarılı");
         form.resetFields();
+  
         localStorage.setItem("storedUser", JSON.stringify(user));
+        localStorage.setItem("token", token);
+  
         window.location = "/";
       }
     } catch (error) {
-      console.log(error);
-      if (error.status === 401) {
+      console.error(error);
+      if (error.response?.status === 401) {
         message.error("Kullanıcı Bilgileri Yanlış");
       }
     } finally {
       setLoading(false);
     }
   };
+  
 
   return (
     <div className="xl:px-20 px-10 w-full flex flex-col h-full justify-center">
