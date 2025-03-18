@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require("../models/User.js");
 const bcrypt = require("bcryptjs");
 const dotenv = require("dotenv");
-const jwt = require("jsonwebtoken"); 
+// const jwt = require("jsonwebtoken"); 
 
 dotenv.config();
 
@@ -49,13 +49,13 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ error: "Invalid password!" });
     }
 
-    const token = jwt.sign(
-      { id: user._id, email: user.email },
-      process.env.JWT_SECRET,
-      { expiresIn: "1h" }
-    );
+    // const token = jwt.sign(
+    //   { id: user._id, email: user.email },
+    //   process.env.JWT_SECRET,
+    //   { expiresIn: "1h" }
+    // );
 
-    res.status(200).json({ token, user });
+    res.status(200).json({ user });
   } catch (error) {
     res.status(500).json({ error: "Server error!" });
   }
